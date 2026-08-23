@@ -39,7 +39,7 @@ jobs:
       - name: Score the quote corpus
         run: |
           python3 tools/check_quotes.py
-          python3 tools/rate_quotes.py --min-mean 4.75 --min-quote 2.5 --min-today 4.0
+          python3 tools/rate_quotes.py --min-mean 5.25 --min-quote 2.5 --min-today 4.0
 
       # Guard the deploy: publishing an empty or half-built tree would
       # replace a working site with nothing, and force_orphan means

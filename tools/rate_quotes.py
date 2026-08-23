@@ -47,8 +47,10 @@ TOPICS = {
         "band": (15, 35), "target": 9.8,
         "lexicon": {"time", "life", "heart", "courage", "fear", "doubt",
                     "curiosity", "learning", "learn", "growth", "grow",
-                    "attention", "meaning", "patience", "regret", "yourself",
-                    "your", "you", "care", "humility", "purpose"},
+                    "attention", "meaning", "patience", "regret",
+                    "care", "humility", "purpose", "years", "mortality",
+                    "morning", "mornings", "days", "hours", "failure",
+                    "ambition", "comfort", "hope", "memory"},
     },
     "business": {
         "band": (20, 50), "target": 7.9,
@@ -196,6 +198,52 @@ POSITIVE_RESOLVERS = {
     "brave", "hope", "future", "forward", "compound", "compounds",
 }
 
+# Lexicon breadth is not cosmetic. With 88 concrete nouns and 72 positive
+# resolvers there was effectively one phrasing per idea that could reach
+# 9.0, which pushed every high-scoring line onto the same skeleton — and
+# the near-duplicate gate then rejected them, including one that scored a
+# clean 10.0. Narrow lists do not raise standards; they narrow the set of
+# sentences the scorer can recognise as good. These additions are ordinary
+# English in the same registers, not new concepts.
+CONCRETE |= {
+    "joint", "joints", "hinge", "hinges", "beam", "plank", "board", "nail",
+    "nails", "screw", "bolt", "chisel", "saw", "blade", "edge", "handle",
+    "bench", "workshop", "shed", "yard", "roof", "step", "stair", "stairs",
+    "threshold", "frame", "panel", "surface", "grain", "timber", "wood",
+    "metal", "glass", "clay", "thread", "stitch", "seam", "hem", "knot",
+    "rope", "chain", "link", "wheel", "axle", "spring", "pulley", "crank",
+    "pocket", "basket", "bowl", "cup", "plate", "spoon", "kettle", "stove",
+    "fire", "ash", "smoke", "salt", "bread", "water", "well", "bucket",
+    "field", "furrow", "harvest", "fence", "post", "hedge", "orchard",
+    "trail", "track", "crossing", "junction", "signpost", "milestone",
+}
+POSITIVE_RESOLVERS |= {
+    "improves", "improved", "deserves", "earns", "earned", "endures",
+    "endure", "outlasts", "outlast", "holds", "stands", "survives",
+    "survive", "repays", "repaid", "returns", "grows", "deepens",
+    "sharpens", "steadies", "settles", "clears", "opens", "opened",
+    "widens", "lightens", "eases", "frees", "rewards", "teaches",
+    "taught", "shows", "proves", "matters", "counts", "lasts", "keeps",
+    "sustains", "carries", "supports", "multiplies", "compounds",
+    "worthwhile", "solid", "steady", "sound", "whole", "true", "right",
+    "warm", "alive", "ready", "capable", "able", "willing", "curious",
+}
+IMPERATIVES |= {
+    "cut", "trim", "shape", "carve", "sand", "plane", "join", "fit",
+    "mount", "hang", "lay", "set", "level", "square", "mark", "score",
+    "split", "bend", "weld", "forge", "temper", "polish", "buff", "clean",
+    "clear", "sweep", "tidy", "sort", "stack", "store", "label", "wrap",
+    "pack", "carry", "lift", "lower", "push", "pull", "hold", "grip",
+    "release", "loosen", "tighten", "secure", "anchor", "brace", "shore",
+    "patch", "mend", "repair", "restore", "rebuild", "renew", "replace",
+    "widen", "narrow", "deepen", "raise", "sink", "bury", "plant", "sow",
+    "tend", "prune", "harvest", "gather", "bind", "tie", "knot", "stitch",
+    "sew", "weave", "spin", "draw", "sketch", "trace", "measure", "count",
+    "weigh", "check", "verify", "confirm", "record", "note", "log", "file",
+    "send", "deliver", "hand", "pass", "share", "lend", "borrow", "return",
+    "skip", "waste", "spend", "save", "invest", "risk", "bet", "commit",
+}
+
 WEIGHTS = {
     "length_fit": 1.6,
     "punchiness": 1.2,
@@ -214,14 +262,28 @@ def words(text: str) -> list[str]:
     return re.findall(r"[a-z']+", text.lower())
 
 
+# Second-person address is ubiquitous in this register — it appeared in
+# the life lexicon, so every line that said "your" was classified as
+# Life and judged against a 15-35 word band. A nine-word craft aphorism
+# scored 5.56 for being nine words long. Pronouns are not diagnostic of
+# topic and no longer vote.
+UBIQUITOUS = {"you", "your", "yours", "yourself", "we", "our", "us",
+              "work", "thing", "things", "way", "people"}
+
+
 def classify(text: str) -> str:
-    w = set(words(text))
+    w = set(words(text)) - UBIQUITOUS
     scores = {
         name: len(w & spec["lexicon"]) / (len(w) ** 0.5 or 1)
         for name, spec in TOPICS.items()
     }
     best = max(scores, key=lambda k: scores[k])
-    return best if scores[best] > 0 else "life"
+    if scores[best] > 0:
+        return best
+    # No topical signal: judge a short line as a short line rather than
+    # defaulting it into the longest band.
+    n = len(words(text))
+    return "innovation" if n <= 13 else ("life" if n <= 38 else "business")
 
 
 def score_one(text: str) -> tuple[float, str, dict[str, float]]:
