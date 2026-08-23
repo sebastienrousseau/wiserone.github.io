@@ -39,6 +39,13 @@ find public -mindepth 1 -type d | while read -r dir; do
   done
 done
 
+# ssg's sitemap plugin emits an empty urlset on a clean build, so
+# rebuild it from what was actually written.
+python3 tools/make_sitemap.py public
+
+# Build caches must not be served to the public.
+rm -rf public/.ssg-cache public/.ssg-plugin-cache.json public/.meta
+
 # The custom domain must be republished on every deploy: the gh-pages
 # branch is force-orphaned, so an un-copied CNAME would be dropped and
 # the domain setting lost.

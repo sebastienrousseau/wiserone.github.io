@@ -45,6 +45,12 @@ jobs:
           echo "built ${pages} pages"
           [ "$pages" -ge 60 ] || { echo "::error::only ${pages} pages built, expected >= 60"; exit 1; }
           grep -q '<blockquote>' public/index.html || { echo "::error::index.html has no rendered quote"; exit 1; }
+          # ssg's own sitemap plugin emits an empty urlset on a clean
+          # build, which is invisible unless asserted on.
+          urls=$(grep -c '<url>' public/sitemap.xml || true)
+          echo "sitemap urls: ${urls}"
+          [ "$urls" -ge 60 ] || { echo "::error::sitemap has ${urls} urls, expected >= 60"; exit 1; }
+          test ! -e public/.ssg-cache || { echo "::error::build cache would be published"; exit 1; }
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
