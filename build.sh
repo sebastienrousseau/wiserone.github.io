@@ -75,6 +75,27 @@ find public -name '*.html' -exec \
 find public -name '*.html' -exec \
   sed -i -e 's/placeholder="Search documentation\.\.\."/placeholder="Search quotes…"/g' {} + 2>/dev/null || true
 
+# Publish the pool itself, so the apps have something to verify against.
+#
+# The corpus lives in three repos — here, the Rust CLI, the Swift app —
+# and until now nothing kept them in step. The date_added ordering bug
+# rode through a fully green Swift suite precisely because there was no
+# shared source to check against. This is that source: the apps' CI
+# fetches it and fails on drift.
+python3 - <<'PUBLISH'
+import json, pathlib
+pool = json.loads(pathlib.Path("_data/quotes/quotes.json").read_text())["quotes"]
+pool.sort(key=lambda q: q["id"])
+out = pathlib.Path("public/quotes.json")
+out.write_text(json.dumps({
+    "note": "Canonical quote pool for wiserone.com and its apps. Ordered by id; "
+            "the quote of the day is pool[date.toordinal() % len(pool)] in UTC.",
+    "count": len(pool),
+    "quotes": pool,
+}, indent=2, ensure_ascii=False) + "\n")
+print(f"published public/quotes.json ({len(pool)} quotes)")
+PUBLISH
+
 # Repoint dated pages at the canonical page for the quote they show.
 # Must run before the sitemap, which decides membership by reading the
 # canonical tags this writes.
