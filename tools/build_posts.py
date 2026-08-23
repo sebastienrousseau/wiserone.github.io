@@ -79,7 +79,12 @@ def quote_page(quote: dict) -> str:
     )
     # Markdown, not raw HTML: ssg escapes embedded HTML in the body, so
     # a hand-written <blockquote> arrives on the page as visible tags.
-    body += f"\n{pretty}\n\n> {text}\n>\n> — {author}\n"
+    # The quote is the page's heading: every page needs exactly one h1
+    # for WAVE/Lighthouse, and the quote is what the page is about. A
+    # markdown heading inside the blockquote yields
+    # <blockquote><h1>…</h1><p>— author</p></blockquote>, which keeps the
+    # quotation semantics while giving the document its heading.
+    body += f"\n{pretty}\n\n> # {text}\n>\n> — {author}\n"
     if quote.get("image_url"):
         body += f'\n![]({quote["image_url"]})\n'
     return body

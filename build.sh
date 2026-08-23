@@ -11,6 +11,9 @@ python3 tools/build_posts.py
 mkdir -p public
 if [ -f manifest.json ]; then cp -f manifest.json public/manifest.json; fi
 
+# Fail early if the palette drifts below AAA.
+python3 tools/contrast.py
+
 # Compile with ssg.
 ssg build -c=_posts -t=_layouts -o=public
 
@@ -38,6 +41,9 @@ find public -mindepth 1 -type d | while read -r dir; do
     [ -f "public/${asset}" ] && cp -f "public/${asset}" "${dir}/${asset}"
   done
 done
+
+# Put the search trigger in the nav so it aligns with the links.
+python3 tools/relocate_search.py public
 
 # The injected search widget ships a docs-oriented placeholder.
 find public -name '*.html' -exec \
@@ -71,8 +77,18 @@ if missing or extra:
     sys.exit(1)
 CHECK
 
+# The image CDN moved from kura.pro to cloudcdn.pro, and every kura.pro
+# path now 404s. Fail rather than publish pages with broken banners.
+if grep -rqs 'kura\.pro' public; then
+  echo "ERROR: kura.pro still referenced in the build output:"
+  grep -rls 'kura\.pro' public | head -5
+  exit 1
+fi
+
 # Build caches must not be served to the public.
 rm -rf public/.ssg-cache public/.ssg-plugin-cache.json public/.meta
+
+python3 tools/minify_css.py public/styles.css
 
 # The custom domain must be republished on every deploy: the gh-pages
 # branch is force-orphaned, so an un-copied CNAME would be dropped and

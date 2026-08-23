@@ -13,7 +13,7 @@
 :root {
   --paper:      #fbfaf7;
   --ink:        #16161a;
-  --ink-muted:  #8c8c86;
+  --ink-muted:  #565651;  /* 7.07:1 on paper — AAA */
   --rule:       rgba(22, 22, 26, 0.10);
   --measure:    40rem;
   --pad:        clamp(1.5rem, 5vw, 5rem);
@@ -22,14 +22,14 @@
   :root:not([data-theme="light"]) {
     --paper:     #0d0d0f;
     --ink:       #ece9e3;
-    --ink-muted: #76767f;
+    --ink-muted: #a3a39d;  /* 7.66:1 on paper — AAA */
     --rule:      rgba(236, 233, 227, 0.12);
   }
 }
 :root[data-theme="dark"] {
   --paper:     #0d0d0f;
   --ink:       #ece9e3;
-  --ink-muted: #76767f;
+  --ink-muted: #a3a39d;  /* 7.66:1 on paper — AAA */
   --rule:      rgba(236, 233, 227, 0.12);
 }
 
@@ -53,9 +53,10 @@ body {
    ties on equal specificity. These overrides are prefixed with `body`
    to outrank it without reaching for !important. */
 body #ssg-search-btn {
-  position: fixed;
-  top: clamp(1.75rem, 4vh, 2.75rem);
-  right: var(--pad);
+  /* Relocated into the nav at build time, so it shares the row's
+     baseline instead of being fixed-positioned near it. Guessing a
+     `top` value could never line up reliably across viewports. */
+  position: static;
   min-height: 0;
   padding: 0;
   gap: 0.5rem;
@@ -107,7 +108,7 @@ body .ssg-search-footer kbd {
   color: var(--ink-muted);
   background: none;
   font-family: inherit;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -137,13 +138,13 @@ button:focus-visible {
 
 .header-inner {
   display: flex;
-  align-items: baseline;
+  /* Centre, not baseline: the search trigger contains an SVG and a kbd,
+     so its baseline sits differently from a plain text link. Equal
+     min-height boxes centred against each other line up regardless. */
+  align-items: center;
   justify-content: space-between;
   gap: 2rem;
   padding-inline: var(--pad);
-  /* Room on the right for the fixed search trigger, which is not part
-     of this flex row — it is injected at the end of <body>. */
-  padding-right: calc(var(--pad) + 8.5rem);
   /* No wrapping: the theme control used to drop onto its own line
      under the links, which is what made the header look broken. */
   flex-wrap: nowrap;
@@ -159,17 +160,28 @@ button:focus-visible {
 
 .site-nav {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: clamp(1.25rem, 3vw, 2.5rem);
 }
 
 .nav-menu {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: clamp(1.25rem, 3vw, 2.5rem);
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.nav-link,
+.theme-toggle,
+body #ssg-search-btn {
+  /* One box for every header control: 44px is comfortably past the
+     24x24 minimum in WCAG 2.2 AA 2.5.8, and centring equal boxes is
+     what actually keeps the row aligned. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 .nav-link {
@@ -201,12 +213,21 @@ button:focus-visible {
    a script would have to wait for DOMContentLoaded and would flash the
    wrong word in whichever mode it guessed against. The button keeps a
    stable aria-label, so assistive tech is unaffected. */
-.theme-toggle::after { content: "Dark mode"; }
+/* Both labels are real text in the DOM, not generated content: a
+   CSS ::after label leaves the button with no accessible text of its
+   own, which WAVE reports as an empty button. The inapplicable one is
+   display:none, so it is neither shown nor announced. Choosing between
+   them in CSS keeps the label correct on first paint — JavaScript would
+   have to wait for DOMContentLoaded and flash the wrong word. */
+.theme-toggle .mode-to-light { display: none; }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme-toggle::after { content: "Light mode"; }
+  :root:not([data-theme="light"]) .theme-toggle .mode-to-dark { display: none; }
+  :root:not([data-theme="light"]) .theme-toggle .mode-to-light { display: inline; }
 }
-:root[data-theme="dark"] .theme-toggle::after { content: "Light mode"; }
-:root[data-theme="light"] .theme-toggle::after { content: "Dark mode"; }
+:root[data-theme="dark"] .theme-toggle .mode-to-dark { display: none; }
+:root[data-theme="dark"] .theme-toggle .mode-to-light { display: inline; }
+:root[data-theme="light"] .theme-toggle .mode-to-dark { display: inline; }
+:root[data-theme="light"] .theme-toggle .mode-to-light { display: none; }
 
 /* ----------------------------- main ----------------------------- */
 
@@ -219,7 +240,7 @@ main {
 /* the date stamp: first paragraph of the body block */
 main > div > p:first-of-type {
   margin: 0 0 clamp(2rem, 5vh, 3.5rem);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ink-muted);
@@ -231,8 +252,8 @@ main blockquote {
   border: 0;
 }
 
-/* the quote itself */
-main blockquote p:first-child {
+/* the quote itself — the page's h1 */
+main blockquote h1 {
   margin: 0;
   font-family: ui-serif, Iowan Old Style, Georgia, serif;
   font-size: clamp(1.5rem, 1rem + 2.1vw, 2.5rem);
@@ -242,7 +263,7 @@ main blockquote p:first-child {
 }
 
 /* attribution */
-main blockquote p + p {
+main blockquote h1 + p {
   margin: clamp(1.75rem, 4vh, 2.5rem) 0 0;
   font-size: 0.75rem;
   letter-spacing: 0.12em;
@@ -254,14 +275,19 @@ main img {
   display: block;
   width: 100%;
   height: auto;
+  /* Remote banners of unknown intrinsic size: without a reserved box
+     they land after first paint and shift the page (CLS). The ratio is
+     enforced with object-fit so the crop stays predictable. */
+  aspect-ratio: 3 / 1;
+  object-fit: cover;
   margin-top: clamp(3.5rem, 10vh, 6rem);
-  filter: saturate(0.85);
+  background: var(--rule);
 }
 
-/* headings on archive / about */
-main h1 {
+/* section headings on archive / about / 404 */
+main > div > h1 {
   margin: 0 0 clamp(2rem, 5vh, 3rem);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -299,7 +325,7 @@ main ul li a:hover { opacity: 0.55; }
 }
 .site-footer p {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-muted);
@@ -308,11 +334,9 @@ main ul li a:hover { opacity: 0.55; }
 .site-footer a:hover { border-bottom-color: currentColor; }
 
 @media (max-width: 44rem) {
-  /* Below this the label and shortcut hint crowd the row; the icon
-     alone still opens the dialog. */
-  body #ssg-search-btn span,
+  /* Below this the shortcut hint crowds the row; the label stays so the
+     control keeps a visible text name. */
   body #ssg-search-btn kbd { display: none; }
-  .header-inner { padding-right: calc(var(--pad) + 2.5rem); }
 }
 
 @media (max-width: 34rem) {
