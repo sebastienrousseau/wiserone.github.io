@@ -117,18 +117,23 @@ CONTRAST = [
 ]
 
 CONCRETE = {
-    "door", "doors", "wall", "walls", "road", "roads", "hand", "hands",
-    "tool", "tools", "room", "rooms", "floor", "ceiling", "foundation",
-    "bridge", "corridor", "seam", "seams", "edge", "edges", "material",
-    "rubble", "museum", "engine", "instrument", "map", "maps", "calendar",
-    "clock", "hour", "hours", "morning", "mornings", "week", "weeks",
-    "midnight", "bar", "yardstick", "guardrail", "net", "line", "lines",
-    "wire", "brick", "bricks", "stone", "table", "chair", "window",
-    "garden", "seed", "roots", "river", "mountain", "path", "step", "steps",
-    "ladder", "rope", "knife", "hammer", "nail", "carpenter", "cabinet",
-    "drawer", "fence", "gate", "key", "lock", "lamp", "candle", "mirror",
-    "compass", "anchor", "sail", "harbour", "harbor", "machine", "gear",
-    "lever", "switch", "thread", "cloth", "paper", "ink", "page", "shelf",
+    # Grounding imagery for a philosophical register: the shared
+    # furniture of an ordinary life, not a trade's inventory. An earlier
+    # version of this list was carpentry vocabulary — chisel, plank,
+    # hinge, furrow — and optimising against it dragged 87 quotes into
+    # workshop imagery that matched the lexicon and not the voice.
+    "road", "roads", "path", "paths", "door", "doors", "room", "rooms",
+    "window", "windows", "mirror", "bridge", "wall", "walls", "gate",
+    "horizon", "distance", "mountain", "river", "sea", "shore", "island",
+    "desert", "forest", "garden", "seed", "seeds", "roots", "harvest",
+    "sky", "star", "stars", "shadow", "shadows", "light", "dark",
+    "morning", "evening", "night", "winter", "summer", "season",
+    "seasons", "clock", "hourglass", "candle", "flame", "fire", "ash",
+    "map", "compass", "anchor", "sail", "voyage", "journey", "mile",
+    "miles", "footprint", "trail", "hand", "hands", "voice", "eyes",
+    "face", "heart", "breath", "pulse", "bone", "blood", "skin",
+    "letter", "page", "book", "story", "song", "silence", "echo",
+    "crowd", "stranger", "strangers", "table", "bread", "water", "well",
 }
 
 JARGON = {
