@@ -68,6 +68,17 @@ KNOWN_QUOTATIONS = [
     "these things just fall away in the face of death",
     "the most important tool i've ever encountered",
     "if today were the last day of my life",
+    # The carpentry story — his father's fence and the chest of drawers.
+    # This theme's authentic imagery is also this corpus's known failure
+    # mode, so both the source phrasings and the register are guarded.
+    "back of the fence",
+    "piece of plywood on the back",
+    "chest of drawers",
+    "nobody will ever see it",
+    "just as good looking as the front",
+    "beautiful piece of wood on the back",
+    "you know it's there",
+    "faces the wall",
 ]
 
 
