@@ -1,0 +1,15 @@
+# ssg configuration.
+#
+# base_url is the important one: without it ssg defaults to
+# http://127.0.0.1:8000 and stamps that into every page's
+# <link rel="canonical">, plus the Atom and JSON feed links. Publishing
+# with the default tells search engines the canonical location of every
+# page is localhost.
+site_name = "wiserone"
+content_dir = "_posts"
+output_dir = "public"
+template_dir = "_layouts"
+base_url = "https://wiserone.com"
+site_title = "The Wiser One"
+site_description = "A daily dose of wisdom. One quote a day from The Wiser One."
+language = "en-GB"

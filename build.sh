@@ -15,7 +15,7 @@ if [ -f manifest.json ]; then cp -f manifest.json public/manifest.json; fi
 python3 tools/contrast.py
 
 # Compile with ssg.
-ssg build -c=_posts -t=_layouts -o=public
+ssg build -f=config.toml -c=_posts -t=_layouts -o=public
 
 # ssg escapes the rendered body when substituting {{content}}; restore it.
 python3 tools/unescape_content.py public
@@ -36,11 +36,6 @@ done
 if [ -f favicon.ico ]; then cp -f favicon.ico public/favicon.ico; fi
 if [ -d assets ]; then mkdir -p public/assets && cp -R assets/. public/assets/; fi
 
-find public -mindepth 1 -type d | while read -r dir; do
-  for asset in styles.css main.js theme-init.js favicon.ico; do
-    [ -f "public/${asset}" ] && cp -f "public/${asset}" "${dir}/${asset}"
-  done
-done
 
 # Put the search trigger in the nav so it aligns with the links.
 python3 tools/relocate_search.py public
@@ -84,6 +79,8 @@ if grep -rqs 'kura\.pro' public; then
   grep -rls 'kura\.pro' public | head -5
   exit 1
 fi
+
+python3 tools/check_links.py public
 
 # Build caches must not be served to the public.
 rm -rf public/.ssg-cache public/.ssg-plugin-cache.json public/.meta

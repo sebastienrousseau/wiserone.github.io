@@ -112,7 +112,7 @@ def main() -> None:
     write("index.md", index)
 
     rows = "\n".join(
-        f'- [{summarise(q["quote_text"], 80)}]({slug(q["date_added"])}.html) '
+        f'- [{summarise(q["quote_text"], 80)}](/{slug(q["date_added"])}.html) '
         f'— {dt.date.fromisoformat(slug(q["date_added"])).strftime("%-d %b %Y")}'
         for q in reversed(quotes)
     )

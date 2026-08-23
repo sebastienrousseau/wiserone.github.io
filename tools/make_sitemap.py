@@ -34,7 +34,10 @@ def main() -> int:
     locs: list[str] = []
     for page in sorted(out.rglob("index.html")):
         rel = page.relative_to(out).parent.as_posix()
-        loc = f"{BASE}/" if rel == "." else f"{BASE}/{rel}.html"
+        # Directory form, matching what ssg emits as <link rel="canonical">.
+        # Listing /x.html here while the page declares /x/ canonical would
+        # advertise a URL the site itself says is not the real one.
+        loc = f"{BASE}/" if rel == "." else f"{BASE}/{rel}/"
         locs.append(loc)
 
     seen, unique = set(), []
