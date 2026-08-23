@@ -89,6 +89,15 @@ KNOWN_QUOTATIONS = [
     "you can't just ask customers what they want",
     "design by committee",
     "great things in business are never done by one person",
+    # Hiring and team size — his most repeated management positions.
+    "a players hire a players",
+    "b players hire c players",
+    "run circles around",
+    "hire smart people and tell them what to do",
+    "so they can tell us what to do",
+    "the best people are self-managing",
+    "my job is to make them better",
+    "a small team of a plus players",
 ]
 
 
