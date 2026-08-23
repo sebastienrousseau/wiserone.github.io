@@ -48,6 +48,13 @@ KNOWN_QUOTATIONS = [
     "don't lose faith",
     "the only way to do great work is to love what you do",
     "have the courage to follow your heart",
+    # His statement on this exact theme. Writing about simplicity-as-
+    # difficulty without tripping into it needs the guard explicit.
+    "simple can be harder than complex",
+    "work hard to get your thinking clean",
+    "get your thinking clean to make it simple",
+    "simplicity is the ultimate",
+    "it takes a lot of hard work to make something simple",
 ]
 
 
