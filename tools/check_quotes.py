@@ -79,6 +79,16 @@ KNOWN_QUOTATIONS = [
     "beautiful piece of wood on the back",
     "you know it's there",
     "faces the wall",
+    # Focus groups, market research and committees — his most quoted
+    # position, and the one this pillar would drift into.
+    "people don't know what they want until you show it",
+    "it's really hard to design products by focus groups",
+    "design products by focus groups",
+    "we do no market research",
+    "a faster horse",
+    "you can't just ask customers what they want",
+    "design by committee",
+    "great things in business are never done by one person",
 ]
 
 
