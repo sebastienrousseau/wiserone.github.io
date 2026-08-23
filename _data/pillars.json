@@ -1,0 +1,57 @@
+{
+  "note": "Ordered thematic blocks. The pool is stored in pillar order; each quote carries its pillar slug.",
+  "pillars": [
+    {
+      "slug": "elimination",
+      "title": "Elimination and focus"
+    },
+    {
+      "slug": "simplicity",
+      "title": "Simplicity"
+    },
+    {
+      "slug": "mortality",
+      "title": "Mortality"
+    },
+    {
+      "slug": "craft",
+      "title": "Craft nobody sees"
+    },
+    {
+      "slug": "groupthink",
+      "title": "Groupthink"
+    },
+    {
+      "slug": "intuition",
+      "title": "The lonely part of intuition"
+    },
+    {
+      "slug": "hiring",
+      "title": "Hiring"
+    },
+    {
+      "slug": "leading",
+      "title": "Leading and pushback"
+    },
+    {
+      "slug": "beginners-mind",
+      "title": "Beginner's mind"
+    },
+    {
+      "slug": "process",
+      "title": "Process and bureaucracy"
+    },
+    {
+      "slug": "affirming-work",
+      "title": "Why the work is worth it"
+    },
+    {
+      "slug": "affirming-life",
+      "title": "Why a life is worth it"
+    },
+    {
+      "slug": "cost-of-the-bar",
+      "title": "What keeping the bar costs"
+    }
+  ]
+}

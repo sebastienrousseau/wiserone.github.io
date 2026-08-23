@@ -80,6 +80,15 @@ find public -name '*.html' -exec \
 # canonical tags this writes.
 python3 tools/canonicalise.py public
 
+# Retired quotes take their /q/ slug with them, and those URLs are the
+# indexed surface. Write a redirect for each before the sitemap runs,
+# so they resolve and are excluded from it in the same pass.
+# The archive's pillar headings need ids before anything links to
+# them; ssg does not emit any.
+python3 tools/heading_ids.py public
+
+python3 tools/retire_redirects.py public
+
 # ssg's sitemap plugin emits an empty urlset on a clean build, so
 # rebuild it from what was actually written.
 python3 tools/make_sitemap.py public
@@ -112,11 +121,18 @@ missing_d = [d.isoformat() for d in sorted(required)
 
 print(f"pool: {len(pool)} quotes, {len(pool) - len(missing_q)} canonical pages; "
       f"date URLs required {len(required)}, missing {len(missing_d)}")
+retired = json.loads(pathlib.Path("_data/retired.json").read_text())["retired"]
+gone = [e["slug"] for e in retired
+        if not (public / "q" / e["slug"] / "index.html").exists()]
+
+print(f"retired slugs: {len(retired)} recorded, {len(gone)} not resolving")
+if gone:
+    print(f"ERROR: {len(gone)} retired URL(s) would 404: {gone[:5]}")
 if missing_q:
     print(f"ERROR: {len(missing_q)} quote(s) with no page: {missing_q[:5]}")
 if missing_d:
     print(f"ERROR: {len(missing_d)} date URL(s) would 404: {missing_d[:5]}")
-if missing_q or missing_d:
+if missing_q or missing_d or gone:
     sys.exit(1)
 CHECK
 

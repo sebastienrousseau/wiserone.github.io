@@ -187,10 +187,19 @@ def main() -> None:
 
     # 4. Archive lists the pool, not the dates: 138 real pages, not 1,000
     #    rotations of them.
-    rows = "\n".join(
-        f'- [{summarise(q["quote_text"], 80)}](/q/{q["slug"]}/)'
-        for q in pool
-    )
+    # Grouped by pillar, not flat: it gives a reader some shape to the
+    # collection, and it gives a retired slug's redirect a destination
+    # with the right context rather than the top of a 136-item list.
+    pillars = json.loads((ROOT / "_data" / "pillars.json").read_text())["pillars"]
+    sections = []
+    for pil in pillars:
+        members = [q for q in pool if q.get("pillar") == pil["slug"]]
+        if not members:
+            continue
+        sections.append(f'## {pil["title"]}\n\n' + "\n".join(
+            f'- [{summarise(q["quote_text"], 80)}](/q/{q["slug"]}/)'
+            for q in members))
+    rows = "\n\n".join(sections)
     write("archive.md", front_matter(
         name=SITE["title"],
         short_name=SITE.get("short_name", SITE["title"]),

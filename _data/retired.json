@@ -1,0 +1,59 @@
+{
+  "note": "Quotes removed from the pool after their /q/ page was published. Those URLs are canonical and indexed, so they must keep resolving: build_posts writes a redirect page for each. Never delete an entry — that is the 404 this file exists to prevent.",
+  "retired": [
+    {
+      "slug": "adding-is-easy-anyone-can-add-deciding-what-doesn-t-belong-is",
+      "quote_text": "Adding is easy. Anyone can add. Deciding what doesn't belong is the job.",
+      "pillar": "elimination",
+      "retired_on": "2026-08-23"
+    },
+    {
+      "slug": "everybody-wants-to-add-nobody-wants-to-be-the-one-who-says-this",
+      "quote_text": "Everybody wants to add. Nobody wants to be the one who says this part is junk.",
+      "pillar": "elimination",
+      "retired_on": "2026-08-23"
+    },
+    {
+      "slug": "great-work-is-mostly-refusal-the-making-is-the-easy-half",
+      "quote_text": "Great work is mostly refusal. The making is the easy half.",
+      "pillar": "elimination",
+      "retired_on": "2026-08-23"
+    },
+    {
+      "slug": "ten-good-things-will-bury-one-great-thing-every-single-time",
+      "quote_text": "Ten good things will bury one great thing every single time.",
+      "pillar": "elimination",
+      "retired_on": "2026-08-23"
+    },
+    {
+      "slug": "the-hardest-part-of-the-job-isn-t-killing-the-bad-work-it-s",
+      "quote_text": "The hardest part of the job isn't killing the bad work. It's killing the work that's already good.",
+      "pillar": "elimination",
+      "retired_on": "2026-08-23"
+    },
+    {
+      "slug": "the-good-ideas-are-the-dangerous-ones-bad-ideas-die-on-their",
+      "quote_text": "The good ideas are the dangerous ones. Bad ideas die on their own; the good ones you have to kill yourself.",
+      "pillar": "elimination",
+      "retired_on": "2026-08-23"
+    },
+    {
+      "slug": "say-no-until-it-s-uncomfortable-then-say-it-twice-more",
+      "quote_text": "Say no until it's uncomfortable. Then say it twice more.",
+      "pillar": "elimination",
+      "retired_on": "2026-08-23"
+    },
+    {
+      "slug": "most-teams-don-t-fail-from-bad-ideas-they-drown-in-good-ones",
+      "quote_text": "Most teams don't fail from bad ideas. They drown in good ones.",
+      "pillar": "elimination",
+      "retired_on": "2026-08-23"
+    },
+    {
+      "slug": "shipping-less-than-you-wanted-to-isn-t-a-compromise-it-s-the",
+      "quote_text": "Shipping less than you wanted to isn't a compromise. It's the point.",
+      "pillar": "elimination",
+      "retired_on": "2026-08-23"
+    }
+  ]
+}
