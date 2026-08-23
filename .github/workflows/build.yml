@@ -33,6 +33,14 @@ jobs:
       - name: Build site
         run: bash build.sh
 
+      # Runs on the daily schedule as well as on push, so a quote that
+      # drifts from the conventions is caught the morning it would be
+      # published rather than whenever someone next looks.
+      - name: Score the quote corpus
+        run: |
+          python3 tools/check_quotes.py
+          python3 tools/rate_quotes.py --min-mean 4.75 --min-quote 2.5 --min-today 4.0
+
       # Guard the deploy: publishing an empty or half-built tree would
       # replace a working site with nothing, and force_orphan means
       # there is no previous commit on gh-pages to fall back to.

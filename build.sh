@@ -9,6 +9,17 @@ cd "$(dirname "$0")"
 python3 tools/check_quotes.py
 python3 tools/publish_daily.py --check
 
+# Structural scoring against the documented profile. These floors are a
+# ratchet, not an achievement: the corpus mean is 4.83 today and the
+# rewrite is in progress, so they are set just below current values to
+# stop regression while the work continues. Raise them as the mean
+# climbs — a floor nobody can breach is not a gate.
+#
+#   --min-mean   corpus average must not fall
+#   --min-quote  no single quote may be worse than the current floor
+#   --min-today  the front page carries a higher bar than the archive
+python3 tools/rate_quotes.py --min-mean 4.75 --min-quote 2.5 --min-today 4.0
+
 # Regenerate the markdown from the quote data. _posts/ is derived, not
 # authored: _data/quotes/*.json is the source of truth.
 python3 tools/build_posts.py
