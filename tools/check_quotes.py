@@ -55,6 +55,19 @@ KNOWN_QUOTATIONS = [
     "get your thinking clean to make it simple",
     "simplicity is the ultimate",
     "it takes a lot of hard work to make something simple",
+    # The Stanford commencement address. Writing mortality-as-clarifier
+    # without echoing it requires these blocked explicitly.
+    "remembering that i'll be dead soon",
+    "remembering that i will be dead soon",
+    "the single best invention of life",
+    "death is very likely",
+    "no reason not to follow your heart",
+    "you are already naked",
+    "the trap of thinking you have something to lose",
+    "all external expectations, all pride",
+    "these things just fall away in the face of death",
+    "the most important tool i've ever encountered",
+    "if today were the last day of my life",
 ]
 
 
