@@ -48,6 +48,56 @@ def blocks(css: str) -> dict[str, dict[str, str]]:
     return out
 
 
+def scrim_alpha(css: str) -> float | None:
+    """Opacity of the wash painted over the full-screen banner."""
+    match = re.search(
+        r"body::after\s*\{[^}]*?opacity:\s*([0-9.]+)", css, re.S
+    )
+    return float(match.group(1)) if match else None
+
+
+def composite(colour: str, alpha: float, under: str) -> str:
+    """`colour` at `alpha` over `under`."""
+    c = [int(colour.lstrip("#")[i:i + 2], 16) for i in (0, 2, 4)]
+    u = [int(under.lstrip("#")[i:i + 2], 16) for i in (0, 2, 4)]
+    return "#%02x%02x%02x" % tuple(
+        round(c[i] * alpha + u[i] * (1 - alpha)) for i in range(3)
+    )
+
+
+def check_over_banner(schemes: dict[str, dict[str, str]], css: str) -> int:
+    """Text must stay AAA over the scrim, whatever the photo underneath.
+
+    The banner is arbitrary, so the guarantee has to hold for the worst
+    pixel it could contain: pure black beneath a light scrim, pure white
+    beneath a dark one. Anything else would be a claim about photographs
+    nobody has checked.
+    """
+    alpha = scrim_alpha(css)
+    if alpha is None:
+        print("  no scrim found — skipping banner contrast check")
+        return 0
+
+    failures = 0
+    print(f"\n  over the full-screen banner (scrim alpha {alpha})")
+    for label, props in schemes.items():
+        paper = props["--paper"]
+        # a dark paper means a dark scrim, whose worst case is a white pixel
+        worst = "#ffffff" if lum(paper) < 0.5 else "#000000"
+        effective = composite(paper, alpha, worst)
+        print(f"    {label[-42:]}\n      worst-case background {effective}")
+        for token in ("--ink", "--ink-muted"):
+            fg = props.get(token)
+            if not fg:
+                continue
+            r = ratio(fg, effective)
+            verdict = "AAA" if r >= AAA else "FAIL"
+            if r < AAA:
+                failures += 1
+            print(f"      {token:<12} {fg}  {r:5.2f}:1  {verdict}")
+    return failures
+
+
 def main() -> int:
     css = CSS.read_text()
     schemes = blocks(css)
@@ -68,10 +118,12 @@ def main() -> int:
             if r < AAA:
                 failures += 1
             print(f"    {token:<12} {fg}  {r:5.2f}:1  {verdict}")
+    failures += check_over_banner(schemes, css)
+
     if failures:
         print(f"\nERROR: {failures} colour pair(s) below AAA ({AAA}:1)")
         return 1
-    print("\n  all text colours meet WCAG AAA (7:1)")
+    print("\n  all text colours meet WCAG AAA (7:1), on paper and over the banner")
     return 0
 
 

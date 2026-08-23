@@ -37,6 +37,9 @@ if [ -f favicon.ico ]; then cp -f favicon.ico public/favicon.ico; fi
 if [ -d assets ]; then mkdir -p public/assets && cp -R assets/. public/assets/; fi
 
 
+# Lift each quote's banner into a full-screen background.
+python3 tools/fullscreen_bg.py public
+
 # Put the search trigger in the nav so it aligns with the links.
 python3 tools/relocate_search.py public
 

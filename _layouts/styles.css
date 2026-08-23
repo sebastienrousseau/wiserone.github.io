@@ -13,7 +13,7 @@
 :root {
   --paper:      #fbfaf7;
   --ink:        #16161a;
-  --ink-muted:  #565651;  /* 7.07:1 on paper — AAA */
+  --ink-muted:  #414141;  /* 9.78:1 on paper, 7.09:1 worst-case over the scrim */
   --rule:       rgba(22, 22, 26, 0.10);
   --measure:    40rem;
   --pad:        clamp(1.5rem, 5vw, 5rem);
@@ -22,18 +22,63 @@
   :root:not([data-theme="light"]) {
     --paper:     #0d0d0f;
     --ink:       #ece9e3;
-    --ink-muted: #a3a39d;  /* 7.66:1 on paper — AAA */
+    --ink-muted: #bcbcbc;  /* 10.22:1 on paper, 7.03:1 worst-case over the scrim */
     --rule:      rgba(236, 233, 227, 0.12);
   }
 }
 :root[data-theme="dark"] {
   --paper:     #0d0d0f;
   --ink:       #ece9e3;
-  --ink-muted: #a3a39d;  /* 7.66:1 on paper — AAA */
+  --ink-muted: #bcbcbc;  /* 10.22:1 on paper, 7.03:1 worst-case over the scrim */
   --rule:      rgba(236, 233, 227, 0.12);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+
+/* ---------------------- full-screen banner ----------------------
+   Each quote page sets --page-bg to its banner (tools/fullscreen_bg.py
+   lifts it out of the article). The image is painted across the whole
+   viewport and stays put while the page scrolls.
+
+   The scrim is not decoration. Text over an arbitrary photograph has no
+   guaranteed contrast, so a fixed-opacity wash gives the text a known
+   background: at 0.86 the worst case — a pure black pixel under the
+   light scrim, pure white under the dark one — still measures 7.09:1
+   and 7.03:1 for muted text, and better for body text. Lower the alpha
+   and AAA no longer holds; tools/contrast.py checks this rather than
+   trusting it.
+
+   background-attachment is dropped on touch devices, where fixed
+   backgrounds are janky or ignored, and under reduced-motion.        */
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+body::before {
+  z-index: -2;
+  background-image: var(--page-bg, none);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+body::after {
+  z-index: -1;
+  background: var(--paper);
+  opacity: 0.86;
+}
+/* No banner on this page: skip the wash so the paper stays true. */
+body:not([style*="--page-bg"])::after { opacity: 1; }
+
+@media (hover: none) {
+  body::before { background-attachment: scroll; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body::before { background-attachment: scroll; }
+}
 
 html { -webkit-text-size-adjust: 100%; }
 
@@ -237,6 +282,15 @@ main {
   max-width: calc(var(--measure) + var(--pad) * 2);
 }
 
+/* With a full-screen banner the quote reads better centred in the
+   viewport than pinned to the top of a tall empty page. */
+body[style*="--page-bg"] main {
+  min-height: calc(100vh - 14rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 /* the date stamp: first paragraph of the body block */
 main > div > p:first-of-type {
   margin: 0 0 clamp(2rem, 5vh, 3.5rem);
@@ -271,13 +325,12 @@ main blockquote h1 + p {
   color: var(--ink-muted);
 }
 
+/* The banner is now a full-screen background, not an inline image.
+   This remains for any image that appears in body copy later. */
 main img {
   display: block;
   width: 100%;
   height: auto;
-  /* Remote banners of unknown intrinsic size: without a reserved box
-     they land after first paint and shift the page (CLS). The ratio is
-     enforced with object-fit so the crop stays predictable. */
   aspect-ratio: 3 / 1;
   object-fit: cover;
   margin-top: clamp(3.5rem, 10vh, 6rem);
