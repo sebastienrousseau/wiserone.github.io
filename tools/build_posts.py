@@ -121,8 +121,19 @@ def quote_body(quote: dict, shown_date: dt.date | None, layout: str,
         layout=layout,
         permalink=canonical,
     )
-    if shown_date is not None:
-        fields["date"] = shown_date.isoformat()
+    # Every page needs a date field or ssg's news-sitemap generator falls
+    # back to wall-clock time, which makes the feed non-reproducible. A
+    # canonical quote page has no date on it, so it carries the day the
+    # line was written — provenance, not publication.
+    when = (shown_date.isoformat() if shown_date is not None
+            else quote["date_added"][:10])
+    fields["date"] = when
+    # ssg's news-sitemap generator reads its own key and does not fall
+    # back to `date`. Unset, it emits an empty <news:publication_date>
+    # for every page — the deployed sitemap has carried that since the
+    # site launched — and stamps wall-clock time into the build, which
+    # makes consecutive builds of the same commit differ.
+    fields["news_publication_date"] = when
     body = front_matter(**fields)
     # Markdown, not raw HTML: ssg escapes embedded HTML in the body, so a
     # hand-written <blockquote> arrives on the page as visible tags. The

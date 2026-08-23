@@ -204,11 +204,18 @@ def main() -> int:
     for d in dupes:
         problems.append(f"duplicate: {d[:70]}")
 
-    # 2. duplicate dates
-    dates = [q["date_added"][:10] for q in quotes]
-    for d, n in Counter(dates).items():
+    # 2. duplicate ids
+    #
+    # Was a uniqueness check on date_added, back when one date owned one
+    # quote. Since the corpus cut the pool is keyed by id and dates are
+    # assigned by build_posts, so date_added survives only as provenance
+    # — several quotes written on the same day legitimately share one.
+    ids = [q.get("id") for q in quotes]
+    for i, n in Counter(ids).items():
         if n > 1:
-            problems.append(f"date used {n}×: {d}")
+            problems.append(f"id used {n}×: {i}")
+    if any(i is None for i in ids):
+        problems.append(f"{sum(i is None for i in ids)} quote(s) with no id")
 
     # 3. near-duplicates: heavy 4-gram overlap between any two
     sh = [shingles(t) for t in texts]
@@ -264,7 +271,10 @@ def main() -> int:
     lengths = [len(t) for t in texts]
     print(f"  quotes            {len(quotes)}")
     print(f"  distinct texts    {len(set(texts))}")
-    print(f"  date range        {min(dates)} → {max(dates)}")
+    # Provenance only — these are the days the lines were written, not
+    # the days they publish. build_posts decides that from the pool.
+    written = [q["date_added"][:10] for q in quotes]
+    print(f"  written between   {min(written)} → {max(written)}")
     print(f"  length            min {min(lengths)}, mean {sum(lengths)//len(lengths)}, max {max(lengths)}")
     print(f"  commonest opener  \"{worst}\" ×{count} ({share:.1%})")
     print(f"  near-dup pairs    {near}")
