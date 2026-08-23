@@ -119,6 +119,14 @@ KNOWN_QUOTATIONS = [
     "entered one of the most creative periods",
     "beginner's mind",
     "shoshin",
+    # Process, bureaucracy and middle management.
+    "better to be a pirate",
+    "join the navy",
+    "bozo explosion",
+    "the process becomes the content",
+    "sales guys running the company",
+    "monopoly position",
+    "product people get driven out",
 ]
 
 
