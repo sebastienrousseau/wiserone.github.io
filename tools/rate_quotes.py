@@ -238,8 +238,18 @@ def score_one(text: str) -> tuple[float, str, dict[str, float]]:
         d = (lo - n) if n < lo else (n - hi)
         parts["length_fit"] = max(0.0, 1.0 - d / 12)
 
-    # Jobs' distribution is bimodal: punchy soundbite or full narrative.
-    parts["punchiness"] = 1.0 if (n <= 10 or n >= 25) else max(0.0, 1 - (min(n - 10, 25 - n) / 8))
+    # Bimodality is a property of the corpus, not of an individual line.
+    # Scoring each quote against a global 10-or-25 rule contradicted the
+    # per-topic bands: a Life quote of 15-24 words sits squarely inside
+    # its documented range yet could never reach 1.0, so 10/10 was
+    # unreachable for most of the band. Punchiness is now measured
+    # against the topic's own mode — short topics reward brevity, long
+    # topics reward developed structure — and corpus-level bimodality is
+    # reported separately by --distribution.
+    if hi <= 12:
+        parts["punchiness"] = 1.0 if n <= 10 else max(0.0, 1 - (n - 10) / 4)
+    else:
+        parts["punchiness"] = 1.0 if n >= lo else max(0.0, 1 - (lo - n) / 6)
 
     sentences = [s.strip() for s in re.split(r"[.;!?]", text) if s.strip()]
     starts = [words(s)[0] for s in sentences if words(s)]

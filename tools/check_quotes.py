@@ -49,6 +49,30 @@ def words(text: str) -> list[str]:
     return re.findall(r"[a-z']+", text.lower())
 
 
+# Function words survive paraphrase while content words change, so a
+# skeleton of them exposes structural templating that vocabulary-based
+# similarity misses entirely. Five lines built on
+# "<negative> <verb> your <time>. <imperative> the <noun>, not the
+# <noun>, and your <noun> will <positive>" share 5% of their 4-grams —
+# invisible to the near-duplicate check — while being the same sentence
+# wearing different words.
+FUNCTION_WORDS = {
+    "a", "an", "and", "as", "at", "be", "been", "but", "by", "for", "from",
+    "in", "into", "is", "it", "its", "never", "no", "not", "of", "on",
+    "only", "or", "our", "that", "the", "their", "them", "then", "they",
+    "this", "to", "until", "up", "was", "what", "when", "which", "while",
+    "who", "will", "with", "without", "you", "your", "yours",
+}
+
+
+def skeleton(text: str, keep: int = 12) -> tuple[str, ...]:
+    """Function-word spine of a line, with content words masked."""
+    out = []
+    for w in words(text)[:keep]:
+        out.append(w if w in FUNCTION_WORDS else "_")
+    return tuple(out)
+
+
 def shingles(text: str, n: int = 4) -> set[tuple[str, ...]]:
     w = words(text)
     return {tuple(w[i:i + n]) for i in range(max(0, len(w) - n + 1))}
@@ -88,7 +112,17 @@ def main() -> int:
     if near > 5:
         problems.append(f"...and {near - 5} more near-duplicate pairs")
 
-    # 4. famous quotations reproduced verbatim
+    # 4. structural templating: same skeleton, different vocabulary
+    skeletons = Counter(skeleton(t) for t in texts)
+    worst_skel, skel_count = skeletons.most_common(1)[0] if skeletons else ((), 0)
+    skel_share = skel_count / len(texts) if texts else 0
+    if skel_share > 0.03:
+        problems.append(
+            f"structural template used by {skel_share:.1%} of the corpus "
+            f"(limit 3%): {' '.join(worst_skel)}"
+        )
+
+    # 5. famous quotations reproduced verbatim
     for q in quotes:
         low = q["quote_text"].lower()
         for known in KNOWN_QUOTATIONS:
@@ -110,6 +144,7 @@ def main() -> int:
     print(f"  length            min {min(lengths)}, mean {sum(lengths)//len(lengths)}, max {max(lengths)}")
     print(f"  commonest opener  \"{worst}\" ×{count} ({share:.1%})")
     print(f"  near-dup pairs    {near}")
+    print(f"  commonest skeleton {skel_share:.1%}  {' '.join(worst_skel[:9])}")
 
     if share > 0.06:
         problems.append(
