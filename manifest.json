@@ -1,0 +1,13 @@
+{
+  "name": "The Wiser One",
+  "short_name": "Wiser One",
+  "description": "A daily dose of wisdom. One quote a day from The Wiser One.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#fdfdfc",
+  "theme_color": "#111827",
+  "lang": "en-GB",
+  "icons": []
+}

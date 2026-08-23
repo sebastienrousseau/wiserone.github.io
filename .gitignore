@@ -1,0 +1,9 @@
+# Build output.
+public/
+
+# _posts/ is generated from _data/quotes/ by tools/build_posts.py on
+# every build. index.md in particular changes with the calendar day, so
+# committing it would leave the tree permanently dirty.
+_posts/
+
+.DS_Store

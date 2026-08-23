@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="{{language}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <link rel="canonical" href="{{permalink}}">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="{{title}}">
+  <meta property="og:description" content="{{description}}">
+  <meta property="og:url" content="{{permalink}}">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="styles.css">
+  <script src="theme-init.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">The Wiser One</a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <ul class="nav-menu">
+          <li><a class="nav-link" href="index.html">Today</a></li>
+          <li><a class="nav-link" href="archive.html">Archive</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
+        </ul>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch colour theme">🌓</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container narrow">
+    {{content}}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container text-center">
+      <p>&copy; 2026 {{author}} &middot; Built with <a href="https://github.com/sebastienrousseau/static-site-generator">SSG</a></p>
+    </div>
+  </footer>
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [main]
+  # The index shows the quote for the current day, chosen by
+  # day-of-year. Without a scheduled build the site would freeze on
+  # whatever day it was last pushed, so rebuild every morning.
+  schedule:
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install cargo-binstall
+        uses: cargo-bins/cargo-binstall@main
+
+      - name: Install ssg
+        run: cargo binstall --no-confirm ssg
+
+      - name: Build site
+        run: bash build.sh
+
+      # Guard the deploy: publishing an empty or half-built tree would
+      # replace a working site with nothing, and force_orphan means
+      # there is no previous commit on gh-pages to fall back to.
+      - name: Verify build output
+        run: |
+          test -f public/index.html || { echo "::error::public/index.html missing"; exit 1; }
+          test -f public/archive.html || { echo "::error::public/archive.html missing"; exit 1; }
+          test -s public/CNAME || { echo "::error::public/CNAME missing or empty"; exit 1; }
+          pages=$(find public -name '*.html' | wc -l | tr -d ' ')
+          echo "built ${pages} pages"
+          [ "$pages" -ge 60 ] || { echo "::error::only ${pages} pages built, expected >= 60"; exit 1; }
+          grep -q '<blockquote>' public/index.html || { echo "::error::index.html has no rendered quote"; exit 1; }
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
+          force_orphan: true
+          commit_message: "Deploy site from ${{ github.sha }}"

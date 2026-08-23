@@ -1,0 +1,13 @@
+{
+  "title": "The Wiser One",
+  "author": "The Wiser One",
+  "tagline": "A daily quote, quietly delivered",
+  "description": "A daily dose of wisdom. One quote a day from The Wiser One, published as a fast, accessible static site.",
+  "language": "en-GB",
+  "locale": "en_GB",
+  "url": "https://wiserone.com",
+  "email": "contact@wiserone.com",
+  "theme_color": "17, 24, 39",
+  "short_name": "Wiser One",
+  "keywords": "daily quote, wisdom, The Wiser One, static site, quotes"
+}

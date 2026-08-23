@@ -1,0 +1,20 @@
+document.addEventListener("DOMContentLoaded", function () {
+  var toggle = document.getElementById("themeToggle");
+  if (!toggle) return;
+  toggle.addEventListener("click", function () {
+    var root = document.documentElement;
+    var current = root.getAttribute("data-theme");
+    if (!current) {
+      current = window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    }
+    var next = current === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try {
+      localStorage.setItem("wiserone-theme", next);
+    } catch (e) {
+      /* ignore */
+    }
+  });
+});
