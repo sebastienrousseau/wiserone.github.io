@@ -140,10 +140,7 @@ def main() -> None:
             layout="page",
             permalink=f"{BASE}/about.html",
         )
-        + f"\n# About\n\n{SITE['description']}\n\n"
-        "The site is a static build: nothing runs on the server and no data "
-        "is collected. Content lives in `_data/quotes/` and is compiled by "
-        "[SSG](https://github.com/sebastienrousseau/static-site-generator).\n",
+        + f"\n# About\n\n{SITE['description']}\n",
     )
 
     write(

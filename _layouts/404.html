@@ -5,11 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{title}}</title>
   <meta name="description" content="{{description}}">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="styles.css">
   <script src="theme-init.js"></script>
 </head>
 <body>
-  <main id="main" class="container narrow" style="text-align:center">
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">The Wiser One</a>
+    </div>
+  </header>
+  <main id="main">
     {{content}}
     <p><a href="index.html">Back to today&rsquo;s quote</a></p>
   </main>

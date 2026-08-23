@@ -51,6 +51,11 @@ jobs:
           echo "sitemap urls: ${urls}"
           [ "$urls" -ge 60 ] || { echo "::error::sitemap has ${urls} urls, expected >= 60"; exit 1; }
           test ! -e public/.ssg-cache || { echo "::error::build cache would be published"; exit 1; }
+          # The search widget is part of the design; it is useless without
+          # its index, and an empty index fails silently in the browser.
+          entries=$(python3 -c "import json;print(len(json.load(open('public/search-index.json'))['entries']))")
+          echo "search index entries: ${entries}"
+          [ "$entries" -ge 60 ] || { echo "::error::search index has ${entries} entries"; exit 1; }
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4

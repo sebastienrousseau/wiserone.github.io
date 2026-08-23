@@ -1,93 +1,322 @@
+/* ------------------------------------------------------------------
+   The Wiser One — a quiet, typographic layout.
+
+   Selectors target the markup ssg actually produces from markdown, not
+   hand-authored classes: the body arrives as
+   <div lang><p>date</p><blockquote><p>quote</p><p>— author</p></blockquote>
+   so styling hangs off structure. An earlier version styled .quote /
+   .stamp / .attribution, which stopped existing the moment content
+   generation moved from raw HTML to markdown, leaving every quote as
+   unstyled body text.
+   ------------------------------------------------------------------ */
+
 :root {
-  --ink: #111827;
-  --ink-soft: #4b5563;
-  --paper: #fdfdfc;
-  --line: #e5e7eb;
-  --accent: #7c3aed;
-  --measure: 34rem;
+  --paper:      #fbfaf7;
+  --ink:        #16161a;
+  --ink-muted:  #8c8c86;
+  --rule:       rgba(22, 22, 26, 0.10);
+  --measure:    40rem;
+  --pad:        clamp(1.5rem, 5vw, 5rem);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --ink: #f3f4f6;
-    --ink-soft: #9ca3af;
-    --paper: #0b0d12;
-    --line: #1f2937;
-    --accent: #a78bfa;
+    --paper:     #0d0d0f;
+    --ink:       #ece9e3;
+    --ink-muted: #76767f;
+    --rule:      rgba(236, 233, 227, 0.12);
   }
 }
 :root[data-theme="dark"] {
-  --ink: #f3f4f6;
-  --ink-soft: #9ca3af;
-  --paper: #0b0d12;
-  --line: #1f2937;
-  --accent: #a78bfa;
+  --paper:     #0d0d0f;
+  --ink:       #ece9e3;
+  --ink-muted: #76767f;
+  --rule:      rgba(236, 233, 227, 0.12);
 }
-* { box-sizing: border-box; }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
 body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font: 1.05rem/1.7 ui-serif, Georgia, "Times New Roman", serif;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
-.container { width: min(100% - 2.5rem, 62rem); margin-inline: auto; }
-.narrow { max-width: var(--measure); }
+
+/* ssg injects a search widget with its own stylesheet, linked from
+   inside <body> — so it lands after this file in the cascade and wins
+   ties on equal specificity. These overrides are prefixed with `body`
+   to outrank it without reaching for !important. */
+body #ssg-search-btn {
+  position: fixed;
+  top: clamp(1.75rem, 4vh, 2.75rem);
+  right: var(--pad);
+  min-height: 0;
+  padding: 0;
+  gap: 0.5rem;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--ink-muted);
+  font-family: inherit;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 160ms ease;
+}
+body #ssg-search-btn:hover { color: var(--ink); }
+body #ssg-search-btn svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+body #ssg-search-btn kbd {
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 0.1rem 0.3rem;
+  font: inherit;
+  font-size: 0.625rem;
+  color: var(--ink-muted);
+}
+body #ssg-search-overlay { background: rgba(13, 13, 15, 0.55); }
+body #ssg-search-box {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+  font-family: inherit;
+}
+body #ssg-search-input {
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 1rem;
+}
+body #ssg-search-input::placeholder { color: var(--ink-muted); }
+body #ssg-search-header svg { stroke: var(--ink-muted); fill: none; }
+body .ssg-search-footer,
+body .ssg-search-footer kbd {
+  color: var(--ink-muted);
+  background: none;
+  font-family: inherit;
+  font-size: 0.6875rem;
+}
+
+a { color: inherit; text-decoration: none; }
+a:focus-visible,
+button:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
 .skip-link {
-  position: absolute; left: -9999px; top: 0;
-  background: var(--accent); color: #fff; padding: .6rem 1rem; z-index: 10;
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.75rem 1rem;
+  z-index: 20;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 .skip-link:focus { left: 0; }
-.site-header { border-bottom: 1px solid var(--line); }
+
+/* ---------------------------- header ---------------------------- */
+
+.site-header { padding-block: clamp(1.75rem, 4vh, 2.75rem); }
+
 .header-inner {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 1rem; padding-block: 1.1rem; flex-wrap: wrap;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-inline: var(--pad);
+  /* Room on the right for the fixed search trigger, which is not part
+     of this flex row — it is injected at the end of <body>. */
+  padding-right: calc(var(--pad) + 8.5rem);
+  /* No wrapping: the theme control used to drop onto its own line
+     under the links, which is what made the header look broken. */
+  flex-wrap: nowrap;
 }
+
 .brand {
-  font-weight: 600; letter-spacing: .02em; text-decoration: none; color: var(--ink);
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  white-space: nowrap;
 }
+
+.site-nav {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+}
+
 .nav-menu {
-  display: flex; gap: 1.25rem; list-style: none; margin: 0; padding: 0;
-  font-family: ui-sans-serif, system-ui, sans-serif; font-size: .92rem;
+  display: flex;
+  align-items: baseline;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-.nav-link { color: var(--ink-soft); text-decoration: none; }
-.nav-link:hover, .nav-link:focus-visible { color: var(--accent); }
+
+.nav-link {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  transition: color 160ms ease;
+}
+.nav-link:hover { color: var(--ink); }
+
 .theme-toggle {
-  background: none; border: 1px solid var(--line); border-radius: 999px;
-  cursor: pointer; padding: .3rem .6rem; color: inherit; font-size: .9rem;
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: var(--ink-muted);
+  font: inherit;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 160ms ease;
 }
-main { padding-block: 4rem 5rem; }
-.quote {
-  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.3rem);
-  line-height: 1.35; margin: 0 0 1.5rem; text-wrap: balance;
+.theme-toggle:hover { color: var(--ink); }
+
+/* The visible label names the mode the button switches TO. Rendering it
+   from CSS rather than JavaScript means it is right on first paint —
+   a script would have to wait for DOMContentLoaded and would flash the
+   wrong word in whichever mode it guessed against. The button keeps a
+   stable aria-label, so assistive tech is unaffected. */
+.theme-toggle::after { content: "Dark mode"; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle::after { content: "Light mode"; }
 }
-.quote::before { content: "\201C"; color: var(--accent); margin-right: .1em; }
-.quote::after  { content: "\201D"; color: var(--accent); }
-.attribution {
-  font-family: ui-sans-serif, system-ui, sans-serif;
-  font-size: .95rem; color: var(--ink-soft); margin: 0;
+:root[data-theme="dark"] .theme-toggle::after { content: "Light mode"; }
+:root[data-theme="light"] .theme-toggle::after { content: "Dark mode"; }
+
+/* ----------------------------- main ----------------------------- */
+
+main {
+  padding-inline: var(--pad);
+  padding-block: clamp(4rem, 16vh, 11rem) clamp(4rem, 12vh, 8rem);
+  max-width: calc(var(--measure) + var(--pad) * 2);
 }
-.stamp {
-  font-family: ui-sans-serif, system-ui, sans-serif;
-  font-size: .8rem; letter-spacing: .08em; text-transform: uppercase;
-  color: var(--ink-soft); margin-bottom: 2rem;
+
+/* the date stamp: first paragraph of the body block */
+main > div > p:first-of-type {
+  margin: 0 0 clamp(2rem, 5vh, 3.5rem);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
 }
-.banner { width: 100%; height: auto; border-radius: .5rem; margin-top: 3rem; }
-.archive-list { list-style: none; padding: 0; margin: 0; }
-.archive-list li { border-bottom: 1px solid var(--line); }
-.archive-list a {
-  display: flex; gap: 1rem; justify-content: space-between; align-items: baseline;
-  padding: .9rem 0; text-decoration: none; color: var(--ink);
+
+main blockquote {
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
-.archive-list a:hover .archive-quote { color: var(--accent); }
-.archive-date {
-  font-family: ui-sans-serif, system-ui, sans-serif; font-size: .8rem;
-  color: var(--ink-soft); white-space: nowrap;
+
+/* the quote itself */
+main blockquote p:first-child {
+  margin: 0;
+  font-family: ui-serif, Iowan Old Style, Georgia, serif;
+  font-size: clamp(1.5rem, 1rem + 2.1vw, 2.5rem);
+  line-height: 1.4;
+  letter-spacing: -0.012em;
+  text-wrap: pretty;
 }
-.archive-quote { font-size: 1rem; }
+
+/* attribution */
+main blockquote p + p {
+  margin: clamp(1.75rem, 4vh, 2.5rem) 0 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+main img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: clamp(3.5rem, 10vh, 6rem);
+  filter: saturate(0.85);
+}
+
+/* headings on archive / about */
+main h1 {
+  margin: 0 0 clamp(2rem, 5vh, 3rem);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+main p { line-height: 1.75; }
+main p a { border-bottom: 1px solid var(--rule); }
+main p a:hover { border-bottom-color: currentColor; }
+
+/* archive list */
+main ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+main ul li { border-top: 1px solid var(--rule); }
+main ul li:last-child { border-bottom: 1px solid var(--rule); }
+main ul li a {
+  display: block;
+  padding-block: clamp(1rem, 2.5vh, 1.5rem);
+  font-family: ui-serif, Iowan Old Style, Georgia, serif;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--ink);
+  transition: opacity 160ms ease;
+}
+main ul li a:hover { opacity: 0.55; }
+
+/* ---------------------------- footer ---------------------------- */
+
 .site-footer {
-  border-top: 1px solid var(--line); padding-block: 2.5rem; margin-top: 4rem;
-  font-family: ui-sans-serif, system-ui, sans-serif; font-size: .85rem;
-  color: var(--ink-soft);
+  padding-inline: var(--pad);
+  padding-block: clamp(3rem, 8vh, 5rem);
 }
-.text-center { text-align: center; }
-a { color: var(--accent); }
+.site-footer p {
+  margin: 0;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.site-footer a { border-bottom: 1px solid var(--rule); }
+.site-footer a:hover { border-bottom-color: currentColor; }
+
+@media (max-width: 44rem) {
+  /* Below this the label and shortcut hint crowd the row; the icon
+     alone still opens the dialog. */
+  body #ssg-search-btn span,
+  body #ssg-search-btn kbd { display: none; }
+  .header-inner { padding-right: calc(var(--pad) + 2.5rem); }
+}
+
+@media (max-width: 34rem) {
+  .header-inner { gap: 1rem; }
+  .nav-menu { gap: 1rem; }
+  .brand { letter-spacing: 0.12em; }
+}
