@@ -35,6 +35,33 @@ KNOWN_QUOTATIONS = [
     "think different",
     "connecting the dots",
     "put a dent in the universe",
+    # The WWDC focus answer and the Stanford address are the two texts
+    # this corpus is most likely to drift into paraphrasing, because
+    # they are the clearest statements of the themes being written to.
+    "saying no to the hundred other good ideas",
+    "innovation is saying no to",
+    "as proud of the things we haven't done",
+    "focus means saying yes",
+    "lightness of being a beginner again",
+    "heaviness of being successful",
+    "less sure about everything",
+    "don't lose faith",
+    "the only way to do great work is to love what you do",
+    "have the courage to follow your heart",
+]
+
+
+# Phrases that mark modern management writing rather than the register
+# being matched. Each was identified in editorial review of a batch that
+# passed every numeric gate: "if you have ten priorities you have none"
+# is a productivity-blog cliché, "adequate" is a word he never reached
+# for, and defining "strategy" as a noun is consultant framing.
+CORPORATE = [
+    "priorities, you have none", "if everything is a priority",
+    "adequate", "wish list", "strategy is", "actionable", "deliverable",
+    "stakeholder", "bandwidth", "circle back", "best practice",
+    "value-add", "synergy", "leverage the", "double down",
+    "at the end of the day", "move the needle", "low-hanging fruit",
 ]
 
 
@@ -122,7 +149,15 @@ def main() -> int:
             f"(limit 3%): {' '.join(worst_skel)}"
         )
 
-    # 5. famous quotations reproduced verbatim
+    # 5. management-speak that reads as a seminar rather than a person
+    for q in quotes:
+        low = q["quote_text"].lower()
+        for phrase in CORPORATE:
+            if phrase in low:
+                problems.append(
+                    f"management-speak ({phrase!r}): {q['quote_text'][:60]}")
+
+    # 6. famous quotations reproduced verbatim
     for q in quotes:
         low = q["quote_text"].lower()
         for known in KNOWN_QUOTATIONS:
