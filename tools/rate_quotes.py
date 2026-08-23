@@ -1,25 +1,33 @@
 #!/usr/bin/env python3
-"""Score the corpus against the documented Steve Jobs structural profile.
+"""Score the corpus against Steve Jobs' actual register.
 
-What this measures, and what it does not
-----------------------------------------
-It measures *structural conformance* to the published profile of Jobs'
-rhetoric: length bands per topic, imperative and axiomatic phrasing,
-possessive density, oppositional contrast, concrete grounding, absence
-of domain jargon, hedging, and the negative-constraint-into-positive-
-resolution arc.
+Rebuilt. The previous version scored structural devices drawn from a
+summary matrix — imperative openings, "never/not...but" markers,
+concrete nouns, possessive density, a negative-to-positive word arc.
+Assembled into a weighted checklist those describe a voice he does not
+have. It rated
 
-It does not measure whether a line is good. No script does. Treat the
-score as a falsifiable proxy: every component is visible, weighted
-openly, and can be recomputed. A quote can score 9 and still be flat.
+    "Never varnish a flaw; cut the joint your craft rejects."      9.5
+    "Most people don't need a better idea. They need to stop
+     asking permission for the one they already have."            2.9
 
-Calibration targets come from the structural matrix, not from a stored
-corpus of Jobs quotations — republishing copyrighted lines as a test
-fixture is avoidable, and the matrix is the actual specification:
+which is backwards. The second is the one that sounds like him.
 
-    Innovation & Design    6–12 words   target 8.5
-    Life & Motivation     15–35 words   target 9.8
-    Business & Startups   20–50 words   target 7.9
+What the register actually is
+-----------------------------
+* Colloquial and direct. Contractions, common words, plain abstract
+  nouns — permission, education, worry, attention — not literary ones.
+* Active and forward-looking. Metaphors that move ("connecting the
+  dots", "dent in the universe"), not ones that settle ("regret
+  gathers").
+* Mortality as a tool for clearing fear and pride, never as a lament
+  for missed chances.
+* Short declaratives. Statements, not commands; he rarely instructs.
+* Second person, plainly used.
+
+Every component below is falsifiable and printed. The validation that
+matters is ordering: known-good lines must outrank known-bad ones, and
+tools/validate_scorer.py asserts exactly that.
 """
 
 from __future__ import annotations
@@ -36,230 +44,119 @@ from collections import Counter, defaultdict
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 TOPICS = {
-    "innovation": {
-        "band": (6, 12), "target": 8.5,
-        "lexicon": {"design", "simplicity", "simple", "craft", "build", "make",
-                    "innovation", "innovate", "idea", "ideas", "invention",
-                    "abstraction", "system", "product", "prototype", "elegant",
-                    "complexity", "detail", "details", "quality", "taste"},
-    },
-    "life": {
-        "band": (15, 35), "target": 9.8,
-        "lexicon": {"time", "life", "heart", "courage", "fear", "doubt",
-                    "curiosity", "learning", "learn", "growth", "grow",
-                    "attention", "meaning", "patience", "regret",
-                    "care", "humility", "purpose", "years", "mortality",
-                    "morning", "mornings", "days", "hours", "failure",
-                    "ambition", "comfort", "hope", "memory"},
-    },
-    "business": {
-        "band": (20, 50), "target": 7.9,
-        "lexicon": {"team", "teams", "customer", "market", "decision",
-                    "decisions", "process", "priority", "priorities", "plan",
-                    "deadline", "trust", "leadership", "ownership", "standard",
-                    "standards", "hire", "manage", "scope", "estimate",
-                    "stakeholder", "reputation", "incentive", "incentives"},
-    },
+    "innovation": {"band": (6, 14), "target": 8.5,
+        "lexicon": {"idea", "ideas", "design", "simple", "simplicity", "build",
+                    "built", "make", "makes", "product", "products", "better",
+                    "different", "new", "craft", "quality", "detail", "taste",
+                    "invent", "innovation", "ship", "shipped"}},
+    "life": {"band": (15, 35), "target": 9.8,
+        "lexicon": {"life", "time", "die", "died", "death", "dead", "dying",
+                    "heart", "love", "fear", "courage", "years", "year",
+                    "day", "days", "live", "living", "yourself", "worry",
+                    "worried", "pride", "regret", "beginner", "learn",
+                    "learning", "curious", "curiosity", "intuition", "gut"}},
+    "business": {"band": (20, 50), "target": 7.9,
+        "lexicon": {"company", "team", "people", "hire", "hired", "customer",
+                    "customers", "money", "market", "job", "work", "boss",
+                    "manage", "managers", "employees", "business", "startup"}},
 }
 
-# Detection notes
-# ---------------
-# An earlier version of this scorer checked only the first word for an
-# imperative, matched contrast against a dozen fixed phrases, and used a
-# 24-word sentiment list. Well-formed lines scored 6.5 while losing
-# points on components that were really measuring the narrowness of
-# those lists. Optimising the corpus against that would have been
-# writing to please a regex. The lexicons below are broader and the
-# structural checks look across sentences, not just at position zero.
+# ---------------------------------------------------------------- signals
 
-IMPERATIVES = {
-    "ask", "build", "give", "take", "refuse", "choose", "prefer", "watch",
-    "understand", "learn", "judge", "measure", "guard", "design", "ship",
-    "start", "stop", "say", "do", "make", "keep", "find", "notice", "begin",
-    "accept", "question", "trust", "reduce", "remove", "protect", "write",
-    "speak", "listen", "focus", "structure", "optimise", "optimize", "hire",
-    "iterate", "sharpen", "delegate", "set", "show", "fix", "avoid", "treat",
+CONTRACTIONS = re.compile(
+    r"\b\w+'(?:t|s|re|ve|ll|d|m)\b|\bcan't\b|\bdon't\b|\bwon't\b", re.I)
+
+# The thousand-odd words that carry ordinary speech. A line built from
+# these sounds spoken; a line that reaches past them sounds written.
+PLAIN = {
+    "a","about","after","again","all","almost","already","also","always","am",
+    "an","and","another","any","anyone","anything","are","around","as","ask",
+    "asked","asking","at","away","back","bad","be","because","been","before",
+    "begin","being","best","better","big","both","but","buy","by","call",
+    "called","came","can","cannot","care","change","choose","come","could",
+    "day","days","did","different","do","does","doing","done","down","each",
+    "early","end","enough","even","ever","every","everything","far","fast",
+    "few","find","first","for","found","from","get","gets","getting","give",
+    "go","going","gone","good","got","great","had","half","hard","has","have",
+    "he","hear","help","her","here","him","his","hold","home","hour","hours",
+    "how","i","if","in","into","is","it","its","just","keep","kind","知","know",
+    "last","late","later","learn","leave","left","less","let","life","like",
+    "little","live","long","look","looking","lose","lot","made","make","makes",
+    "making","man","many","matter","may","me","mean","might","mind","money",
+    "more","most","much","must","my","never","new","next","no","nobody","not",
+    "nothing","now","of","off","often","old","on","once","one","only","or",
+    "other","our","out","over","own","part","people","person","put","real",
+    "really","right","room","said","same","say","see","seen","set","she",
+    "should","show","side","small","so","some","someone","something","soon",
+    "start","started","still","stop","such","sure","take","talk","tell","than",
+    "that","the","their","them","then","there","these","they","thing","things",
+    "think","this","those","though","thought","time","times","to","today",
+    "together","too","took","turn","two","under","until","up","us","use","used",
+    "very","want","wanted","was","way","we","week","well","went","were","what",
+    "when","where","which","while","who","whole","why","will","with","without",
+    "work","worked","working","world","would","year","years","yes","yet","you",
+    "your","yourself",
 }
 
-IMPERATIVES |= {
-    "consider", "decide", "define", "deliver", "demand", "earn", "expect",
-    "explain", "forget", "hold", "invest", "leave", "look", "name", "offer",
-    "own", "pick", "practise", "practice", "prove", "read", "remember",
-    "replace", "resist", "respect", "return", "seek", "sell", "solve",
-    "spend", "study", "teach", "test", "think", "throw", "try", "use",
-    "wait", "walk", "want", "work", "write", "cut", "draw", "drop", "face",
-    "finish", "follow", "get", "go", "grow", "help", "know", "lead", "let",
-    "live", "love", "move", "put", "raise", "run", "see", "serve", "share",
-    "step", "take", "tell", "turn",
+# Verbs and nouns that mark writing rather than speech.
+LITERARY = {
+    "gathers","gather","beckons","outlasts","outlast","endures","endure",
+    "abides","dwells","lingers","laments","yearns","aspires","transcends",
+    "illuminates","kindles","forges","tempers","hews","carves","adorns",
+    "bestows","imparts","engenders","begets","wanes","waxes","ebbs",
+    "whispers","murmurs","echoes","resonates","permeates","suffuses",
+    "myriad","manifold","sublime","ephemeral","eternal","infinite","profound",
+    "profundity","essence","virtue","folly","yonder","thence","whence",
+    "hitherto","henceforth","therein","wherein","albeit","whilst","amongst",
+    "unto","doth","seldom","oft","ere","betwixt",
 }
 
-POSSESSIVE = {"your", "yours", "you", "our", "ours", "we", "my", "mine", "us",
-              "yourself", "ourselves", "themselves", "their", "his", "her"}
+# Forward motion. He points at what you do next, not what was lost.
+FORWARD = {
+    "will","going","next","now","today","tomorrow","ahead","forward","start",
+    "starting","begin","beginning","become","becomes","get","getting","make",
+    "making","build","building","go","take","move","moving","keep","change",
+    "learn","learning","try","do","ship","choose","find","reach","grow",
+}
 
-CONTRAST = [
-    # explicit antithesis
-    r"\bnot\b[^.]*\bbut\b", r"\bis not\b[^.]*\bit is\b",
-    r"\brather than\b", r"\binstead of\b", r"\bnot\b[^.]*[.;] *it is\b",
-    # comparatives
-    r"\bmore\b[^.]*\bthan\b", r"\bbetter\b[^.]*\bthan\b",
-    r"\bless\b[^.]*\bthan\b", r"\bfaster\b[^.]*\bthan\b",
-    r"\boutlasts?\b", r"\boutruns?\b", r"\boutranks?\b", r"\bbeats\b",
-    r"\bcosts more\b", r"\bworth more\b",
-    # oppositional / limiting
-    r"\bversus\b", r"\bwhereas\b", r"\bwhile\b", r"\bnever\b",
-    r"\bonly\b", r"\bwithout\b", r"\bexcept\b", r"\bunless\b",
-    r"\byet\b", r"\bstill\b", r"\bhowever\b", r"\bbut\b",
-    r"\beither\b[^.]*\bor\b", r"\bchoose between\b",
-    # negation followed by affirmation in the next sentence
-    r"\b(no|not|nothing|nobody|never)\b[^.]*\.[^.]*\b(it is|they are|that is)\b",
-    # em-dash and colon antithesis
-    r"—", r"\b\w+: [a-z]",
+BACKWARD = {
+    "regret","regrets","regretted","missed","lost","wasted","should've",
+    "shouldve","mourn","mourning","nostalgia","yesterday","once","former",
+    "past","gone","never opened","too late","if only",
+}
+
+# Mortality used to clear fear and pride, which is his actual move.
+MORTALITY = {"die","died","death","dead","dying","mortal","grave","buried",
+             "alive","short","limited","finite","end","ends","ending","time"}
+CLEARING = {"fear","pride","worry","worries","embarrassment","expectation",
+            "expectations","opinion","opinions","failure","shame","ego"}
+
+BINARY = [
+    r"\byou can'?t\b[^.]*\byou can only\b", r"\bnot\b[^.]*\bbut\b",
+    r"\binstead of\b", r"\brather than\b", r"\beither\b[^.]*\bor\b",
+    r"\bthe (?:only|best) way\b", r"\bmore\b[^.]*\bthan\b",
+    r"\bit'?s not\b[^.]*\bit'?s\b", r"\bdon'?t\b[^.]*\bdo\b",
+    r"\bstop\b[^.]*\bstart\b", r"\bless\b[^.]*\bmore\b",
 ]
 
-CONCRETE = {
-    # Grounding imagery for a philosophical register: the shared
-    # furniture of an ordinary life, not a trade's inventory. An earlier
-    # version of this list was carpentry vocabulary — chisel, plank,
-    # hinge, furrow — and optimising against it dragged 87 quotes into
-    # workshop imagery that matched the lexicon and not the voice.
-    "road", "roads", "path", "paths", "door", "doors", "room", "rooms",
-    "window", "windows", "mirror", "bridge", "wall", "walls", "gate",
-    "horizon", "distance", "mountain", "river", "sea", "shore", "island",
-    "desert", "forest", "garden", "seed", "seeds", "roots", "harvest",
-    "sky", "star", "stars", "shadow", "shadows", "light", "dark",
-    "morning", "evening", "night", "winter", "summer", "season",
-    "seasons", "clock", "hourglass", "candle", "flame", "fire", "ash",
-    "map", "compass", "anchor", "sail", "voyage", "journey", "mile",
-    "miles", "footprint", "trail", "hand", "hands", "voice", "eyes",
-    "face", "heart", "breath", "pulse", "bone", "blood", "skin",
-    "letter", "page", "book", "story", "song", "silence", "echo",
-    "crowd", "stranger", "strangers", "table", "bread", "water", "well",
-}
+PASSIVE = re.compile(
+    r"\b(?:is|are|was|were|been|being|be)\s+\w+(?:ed|en)\b(?:\s+by\b)?", re.I)
 
-JARGON = {
-    "software", "hardware", "api", "sdk", "database", "server", "cloud",
-    "kubernetes", "javascript", "python", "rust", "compiler", "repository",
-    "commit", "deploy", "microservice", "backend", "frontend", "devops",
-    "startup", "saas", "kpi", "roi", "agile", "scrum", "sprint",
-}
-
-# Universal relatability is not merely the absence of "software". A line
-# built from "backlog", "stakeholder" and "sprint" is just as narrow: it
-# addresses a job rather than a person. The high-scoring register trades
-# domain nouns for shared human resources — time, fear, work, years,
-# attention — which is why those lines survive outside the industry that
-# produced them.
-UNIVERSAL_NOUNS = {
-    "time", "years", "year", "day", "days", "hour", "hours", "life",
-    "heart", "mind", "hand", "hands", "voice", "fear", "courage", "doubt",
-    "hope", "regret", "patience", "attention", "curiosity", "passion",
-    "intuition", "instinct", "work", "people", "person", "someone",
-    "everyone", "nobody", "children", "friend", "friends", "stranger",
-    "strangers", "morning", "night", "week", "future", "past", "memory",
-    "story", "road", "path", "door", "hunger", "taste", "care", "trust",
-    "truth", "meaning", "purpose", "self", "you", "your", "yourself",
-}
-
-DOMAIN_NOUNS = {
-    "backlog", "stakeholder", "stakeholders", "sprint", "roadmap",
-    "deploy", "deployment", "release", "ticket", "tickets", "standup",
-    "retrospective", "velocity", "burndown", "kpi", "okr", "metric",
-    "metrics", "dashboard", "pipeline", "workflow", "process", "processes",
-    "review", "reviews", "reviewer", "estimate", "estimates", "estimation",
-    "scope", "requirement", "requirements", "specification", "abstraction",
-    "architecture", "refactor", "codebase", "commit", "merge", "branch",
-    "feature", "features", "bug", "bugs", "test", "tests", "testing",
-    "config", "configuration", "dependency", "dependencies", "system",
-    "systems", "product", "roadmaps", "onboarding", "handover",
-}
-
-HEDGES = {"maybe", "perhaps", "somewhat", "possibly", "arguably", "fairly",
-          "rather quite", "sort of", "kind of", "probably", "usually might"}
-
-NEGATIVE_OPENERS = {
-    "no", "not", "never", "nothing", "nobody", "none", "without", "fear",
-    "afraid", "doubt", "failure", "fail", "fails", "failed", "cannot",
-    "refuse", "stop", "avoid", "beware", "rarely", "few", "hard", "harder",
-    "hardest", "difficult", "pain", "painful", "cost", "costs", "expensive",
-    "short", "limited", "scarce", "spent", "waste", "wasted", "lost", "lose",
-    "wrong", "mistake", "mistakes", "risk", "risks", "danger", "fragile",
-    "broken", "break", "breaks", "debt", "burden", "tired", "late", "delay",
-    "confusion", "confused", "unclear", "ambiguity", "uncertain", "regret",
-    "ignore", "ignored", "forget", "forgotten", "weak", "weakness", "problem",
-    "problems", "obstacle", "constraint", "pressure", "crisis", "worse",
-}
-
-POSITIVE_RESOLVERS = {
-    "trust", "trusted", "clarity", "clear", "growth", "grow", "value",
-    "worth", "meaning", "freedom", "free", "possible", "easier", "easy",
-    "better", "best", "durable", "lasting", "lasts", "advantage", "strength",
-    "strong", "stronger", "confidence", "confident", "excellence", "craft",
-    "quality", "progress", "learn", "learning", "learned", "wisdom",
-    "respect", "care", "life", "gift", "joy", "delight", "beauty",
-    "beautiful", "elegant", "mastery", "master", "skill", "reward",
-    "rewards", "win", "wins", "succeed", "success", "achieve", "build",
-    "built", "create", "creates", "make", "makes", "opens", "unlock",
-    "matters", "useful", "honest", "generous", "kind", "courage",
-    "brave", "hope", "future", "forward", "compound", "compounds",
-}
-
-# Lexicon breadth is not cosmetic. With 88 concrete nouns and 72 positive
-# resolvers there was effectively one phrasing per idea that could reach
-# 9.0, which pushed every high-scoring line onto the same skeleton — and
-# the near-duplicate gate then rejected them, including one that scored a
-# clean 10.0. Narrow lists do not raise standards; they narrow the set of
-# sentences the scorer can recognise as good. These additions are ordinary
-# English in the same registers, not new concepts.
-CONCRETE |= {
-    "joint", "joints", "hinge", "hinges", "beam", "plank", "board", "nail",
-    "nails", "screw", "bolt", "chisel", "saw", "blade", "edge", "handle",
-    "bench", "workshop", "shed", "yard", "roof", "step", "stair", "stairs",
-    "threshold", "frame", "panel", "surface", "grain", "timber", "wood",
-    "metal", "glass", "clay", "thread", "stitch", "seam", "hem", "knot",
-    "rope", "chain", "link", "wheel", "axle", "spring", "pulley", "crank",
-    "pocket", "basket", "bowl", "cup", "plate", "spoon", "kettle", "stove",
-    "fire", "ash", "smoke", "salt", "bread", "water", "well", "bucket",
-    "field", "furrow", "harvest", "fence", "post", "hedge", "orchard",
-    "trail", "track", "crossing", "junction", "signpost", "milestone",
-}
-POSITIVE_RESOLVERS |= {
-    "improves", "improved", "deserves", "earns", "earned", "endures",
-    "endure", "outlasts", "outlast", "holds", "stands", "survives",
-    "survive", "repays", "repaid", "returns", "grows", "deepens",
-    "sharpens", "steadies", "settles", "clears", "opens", "opened",
-    "widens", "lightens", "eases", "frees", "rewards", "teaches",
-    "taught", "shows", "proves", "matters", "counts", "lasts", "keeps",
-    "sustains", "carries", "supports", "multiplies", "compounds",
-    "worthwhile", "solid", "steady", "sound", "whole", "true", "right",
-    "warm", "alive", "ready", "capable", "able", "willing", "curious",
-}
-IMPERATIVES |= {
-    "cut", "trim", "shape", "carve", "sand", "plane", "join", "fit",
-    "mount", "hang", "lay", "set", "level", "square", "mark", "score",
-    "split", "bend", "weld", "forge", "temper", "polish", "buff", "clean",
-    "clear", "sweep", "tidy", "sort", "stack", "store", "label", "wrap",
-    "pack", "carry", "lift", "lower", "push", "pull", "hold", "grip",
-    "release", "loosen", "tighten", "secure", "anchor", "brace", "shore",
-    "patch", "mend", "repair", "restore", "rebuild", "renew", "replace",
-    "widen", "narrow", "deepen", "raise", "sink", "bury", "plant", "sow",
-    "tend", "prune", "harvest", "gather", "bind", "tie", "knot", "stitch",
-    "sew", "weave", "spin", "draw", "sketch", "trace", "measure", "count",
-    "weigh", "check", "verify", "confirm", "record", "note", "log", "file",
-    "send", "deliver", "hand", "pass", "share", "lend", "borrow", "return",
-    "skip", "waste", "spend", "save", "invest", "risk", "bet", "commit",
-}
+JARGON = {"software","hardware","api","sdk","database","server","cloud",
+          "codebase","deploy","backend","frontend","kpi","roi","agile",
+          "sprint","stakeholder","synergy","leverage","paradigm","backlog"}
 
 WEIGHTS = {
-    "length_fit": 1.6,
-    "punchiness": 1.2,
-    "imperative": 1.3,
-    "possessive": 0.9,
-    "contrast": 1.6,
-    "concrete": 0.9,
-    "universal": 1.8,
-    "no_hedge": 0.7,
-    "valence_arc": 2.0,
-    "single_clause": 1.2,
+    "colloquial":   2.0,   # contractions and common words — the core signal
+    "plain_words":  2.0,   # absence of literary vocabulary
+    "direct":       1.2,   # second person, plainly used
+    "active":       1.2,   # active voice
+    "forward":      1.8,   # points at what you do next
+    "declarative":  1.0,   # statements, short sentences
+    "binary":       1.3,   # plain either/or framing
+    "universal":    1.0,   # no jargon
+    "length_fit":   1.0,   # inside the topic's band
+    "stakes":       0.5,   # mortality used to clear fear (bonus, not required)
 }
 
 
@@ -267,28 +164,19 @@ def words(text: str) -> list[str]:
     return re.findall(r"[a-z']+", text.lower())
 
 
-# Second-person address is ubiquitous in this register — it appeared in
-# the life lexicon, so every line that said "your" was classified as
-# Life and judged against a 15-35 word band. A nine-word craft aphorism
-# scored 5.56 for being nine words long. Pronouns are not diagnostic of
-# topic and no longer vote.
-UBIQUITOUS = {"you", "your", "yours", "yourself", "we", "our", "us",
-              "work", "thing", "things", "way", "people"}
+UBIQUITOUS = {"you", "your", "yours", "yourself", "we", "our", "us", "thing",
+              "things", "way", "people"}
 
 
 def classify(text: str) -> str:
     w = set(words(text)) - UBIQUITOUS
-    scores = {
-        name: len(w & spec["lexicon"]) / (len(w) ** 0.5 or 1)
-        for name, spec in TOPICS.items()
-    }
+    scores = {n: len(w & s["lexicon"]) / (len(w) ** 0.5 or 1)
+              for n, s in TOPICS.items()}
     best = max(scores, key=lambda k: scores[k])
     if scores[best] > 0:
         return best
-    # No topical signal: judge a short line as a short line rather than
-    # defaulting it into the longest band.
     n = len(words(text))
-    return "innovation" if n <= 13 else ("life" if n <= 38 else "business")
+    return "innovation" if n <= 14 else ("life" if n <= 38 else "business")
 
 
 def score_one(text: str) -> tuple[float, str, dict[str, float]]:
@@ -296,72 +184,47 @@ def score_one(text: str) -> tuple[float, str, dict[str, float]]:
     n = len(w)
     topic = classify(text)
     lo, hi = TOPICS[topic]["band"]
-    parts: dict[str, float] = {}
+    sentences = [s.strip() for s in re.split(r"[.;!?]", text) if s.strip()]
+    p: dict[str, float] = {}
 
-    # inside the band scores 1; outside decays with distance
+    # colloquial: contractions plus a high share of everyday words
+    contractions = len(CONTRACTIONS.findall(text))
+    plain_share = sum(1 for x in w if x in PLAIN) / max(1, n)
+    p["colloquial"] = min(1.0, (0.6 if contractions else 0.0)
+                          + max(0.0, (plain_share - 0.55) / 0.30))
+
+    # plain words: literary vocabulary is disqualifying, not merely costly
+    literary = sum(1 for x in w if x in LITERARY)
+    p["plain_words"] = 0.0 if literary else 1.0
+
+    p["direct"] = 1.0 if {"you", "your", "yourself", "you're", "you'll",
+                          "you've", "you'd"} & set(w) else 0.3
+
+    passives = len(PASSIVE.findall(text))
+    p["active"] = 1.0 if passives == 0 else max(0.0, 1 - passives * 0.5)
+
+    fwd = len(set(w) & FORWARD)
+    back = len(set(w) & BACKWARD) + (1 if any(b in text.lower() for b in
+                                              ("never opened", "if only", "too late")) else 0)
+    p["forward"] = max(0.0, min(1.0, 0.35 + 0.35 * fwd - 0.55 * back))
+
+    avg_sentence = n / max(1, len(sentences))
+    p["declarative"] = 1.0 if avg_sentence <= 16 else max(0.0, 1 - (avg_sentence - 16) / 12)
+
+    p["binary"] = 1.0 if any(re.search(b, text.lower()) for b in BINARY) else 0.45
+
+    p["universal"] = 0.0 if set(w) & JARGON else 1.0
+
     if lo <= n <= hi:
-        parts["length_fit"] = 1.0
+        p["length_fit"] = 1.0
     else:
         d = (lo - n) if n < lo else (n - hi)
-        parts["length_fit"] = max(0.0, 1.0 - d / 12)
+        p["length_fit"] = max(0.0, 1.0 - d / 10)
 
-    # Bimodality is a property of the corpus, not of an individual line.
-    # Scoring each quote against a global 10-or-25 rule contradicted the
-    # per-topic bands: a Life quote of 15-24 words sits squarely inside
-    # its documented range yet could never reach 1.0, so 10/10 was
-    # unreachable for most of the band. Punchiness is now measured
-    # against the topic's own mode — short topics reward brevity, long
-    # topics reward developed structure — and corpus-level bimodality is
-    # reported separately by --distribution.
-    if hi <= 12:
-        parts["punchiness"] = 1.0 if n <= 10 else max(0.0, 1 - (n - 10) / 4)
-    else:
-        parts["punchiness"] = 1.0 if n >= lo else max(0.0, 1 - (lo - n) / 6)
+    p["stakes"] = 1.0 if (set(w) & MORTALITY and set(w) & CLEARING) else 0.5
 
-    sentences = [s.strip() for s in re.split(r"[.;!?]", text) if s.strip()]
-    starts = [words(s)[0] for s in sentences if words(s)]
-    parts["imperative"] = 1.0 if any(s in IMPERATIVES for s in starts) else 0.0
-    poss = sum(1 for x in w if x in POSSESSIVE)
-    parts["possessive"] = min(1.0, poss / max(1, n * 0.08))
-    parts["contrast"] = 1.0 if any(re.search(p, text.lower()) for p in CONTRAST) else 0.0
-    parts["concrete"] = min(1.0, sum(1 for x in w if x in CONCRETE) / 2 + 
-                            (0.5 if any(x in CONCRETE for x in w) else 0.0))
-    # jargon is disqualifying; beyond that, reward human nouns and
-    # penalise workplace-domain ones
-    if set(w) & JARGON:
-        parts["universal"] = 0.0
-    else:
-        human = len(set(w) & UNIVERSAL_NOUNS)
-        domain = len(set(w) & DOMAIN_NOUNS)
-        parts["universal"] = max(0.0, min(1.0, 0.35 + 0.35 * human - 0.30 * domain))
-    parts["no_hedge"] = 0.0 if any(h in text.lower() for h in HEDGES) else 1.0
-
-    # The signature movement: open on a constraint or warning, resolve
-    # into a positive call to action. Measured over the opening and
-    # closing thirds so a long line is not judged by its midpoint, and
-    # a closing imperative counts as the call to action.
-    third = max(1, n // 3)
-    head, tail = set(w[:third]), set(w[-third:])
-    opens_negative = bool(head & NEGATIVE_OPENERS)
-    ends_positive = bool(tail & POSITIVE_RESOLVERS)
-    ends_imperative = bool(starts and starts[-1] in IMPERATIVES) if n > 12 else False
-    if opens_negative and (ends_positive or ends_imperative):
-        parts["valence_arc"] = 1.0
-    elif opens_negative or ends_positive or ends_imperative:
-        parts["valence_arc"] = 0.45
-    else:
-        parts["valence_arc"] = 0.0
-
-    # Short lines should be single-clause; longer narrative lines are
-    # expected to carry two or three sentences, as his commencement
-    # passages do. Penalising commas there measured the wrong thing.
-    if n <= 12:
-        parts["single_clause"] = 1.0 if text.count(",") <= 1 else 0.5
-    else:
-        parts["single_clause"] = 1.0 if len(sentences) >= 2 else 0.6
-
-    total = sum(parts[k] * WEIGHTS[k] for k in WEIGHTS)
-    return round(10 * total / sum(WEIGHTS.values()), 2), topic, parts
+    total = sum(p[k] * WEIGHTS[k] for k in WEIGHTS)
+    return round(10 * total / sum(WEIGHTS.values()), 2), topic, p
 
 
 def load() -> list[dict]:
@@ -373,95 +236,72 @@ def load() -> list[dict]:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--worst", type=int, default=0, help="list the N lowest-scoring quotes")
-    ap.add_argument("--min-mean", type=float, default=0.0,
-                    help="fail if the corpus mean falls below this")
-    ap.add_argument("--json", metavar="FILE", help="write per-quote scores")
-    ap.add_argument("--min-quote", type=float, default=0.0,
-                    help="fail if any single quote scores below this")
-    ap.add_argument("--min-today", type=float, default=0.0,
-                    help="fail if today's quote (the front page) scores below this")
+    ap.add_argument("--worst", type=int, default=0)
+    ap.add_argument("--min-mean", type=float, default=0.0)
+    ap.add_argument("--min-quote", type=float, default=0.0)
+    ap.add_argument("--min-today", type=float, default=0.0)
+    ap.add_argument("--json", metavar="FILE")
     args = ap.parse_args()
 
     quotes = load()
-    rows = []
-    for q in quotes:
-        s, topic, parts = score_one(q["quote_text"])
-        rows.append({"date": q["date_added"][:10], "text": q["quote_text"],
-                     "score": s, "topic": topic, "parts": parts,
-                     "words": len(words(q["quote_text"]))})
+    rows = [{"date": q["date_added"][:10], "text": q["quote_text"],
+             **dict(zip(("score", "topic", "parts"), score_one(q["quote_text"]))),
+             "words": len(words(q["quote_text"]))} for q in quotes]
 
+    overall = [r["score"] for r in rows]
     by_topic: dict[str, list[float]] = defaultdict(list)
     for r in rows:
         by_topic[r["topic"]].append(r["score"])
-    overall = [r["score"] for r in rows]
 
     print(f"  corpus            {len(rows)} quotes")
     print(f"  mean score        {statistics.mean(overall):.2f} / 10")
     print(f"  median            {statistics.median(overall):.2f}")
-    print(f"  std dev           {statistics.pstdev(overall):.2f}")
+    print(f"  at or above 9.0   {sum(1 for s in overall if s >= 9.0)}")
     print()
-    print(f"  {'topic':<12}{'n':>6}{'mean':>8}{'target':>8}{'gap':>8}{'words':>8}")
+    print(f"  {'topic':<12}{'n':>6}{'mean':>8}{'target':>8}{'words':>8}")
     for name in TOPICS:
-        vals = by_topic.get(name, [])
-        if not vals:
-            continue
-        wcount = statistics.mean(r["words"] for r in rows if r["topic"] == name)
-        m = statistics.mean(vals)
-        t = TOPICS[name]["target"]
-        print(f"  {name:<12}{len(vals):>6}{m:>8.2f}{t:>8.1f}{m - t:>+8.2f}{wcount:>8.1f}")
+        v = by_topic.get(name, [])
+        if v:
+            wc = statistics.mean(r["words"] for r in rows if r["topic"] == name)
+            print(f"  {name:<12}{len(v):>6}{statistics.mean(v):>8.2f}"
+                  f"{TOPICS[name]['target']:>8.1f}{wc:>8.1f}")
 
-    print("\n  score distribution")
-    buckets = Counter(min(9, int(s)) for s in overall)
-    for b in sorted(buckets):
-        bar = "█" * max(1, round(40 * buckets[b] / len(overall)))
-        print(f"    {b}–{b+1}  {buckets[b]:>5}  {bar}")
-
-    print("\n  component means (0–1, weight in brackets)")
+    print("\n  component means (0-1, weight in brackets)")
     for k in WEIGHTS:
-        mean = statistics.mean(r["parts"][k] for r in rows)
-        print(f"    {k:<14} {mean:.2f}   [{WEIGHTS[k]}]")
+        print(f"    {k:<13} {statistics.mean(r['parts'][k] for r in rows):.2f}   [{WEIGHTS[k]}]")
 
     if args.worst:
         print(f"\n  {args.worst} lowest-scoring")
         for r in sorted(rows, key=lambda r: r["score"])[:args.worst]:
-            print(f"    {r['score']:>5}  {r['date']}  {r['text'][:66]}")
+            print(f"    {r['score']:>5}  {r['text'][:66]}")
 
     if args.json:
         pathlib.Path(args.json).write_text(json.dumps(rows, indent=2) + "\n")
-        print(f"\n  per-quote scores written to {args.json}")
 
     failed = False
     mean = statistics.mean(overall)
     if args.min_mean and mean < args.min_mean:
-        print(f"\nERROR: corpus mean {mean:.2f} is below the floor {args.min_mean}")
+        print(f"\nERROR: corpus mean {mean:.2f} below floor {args.min_mean}")
         failed = True
-
     if args.min_quote:
         weak = [r for r in rows if r["score"] < args.min_quote]
         if weak:
-            print(f"\nERROR: {len(weak)} quote(s) below the per-quote floor "
-                  f"{args.min_quote}:")
+            print(f"\nERROR: {len(weak)} quote(s) below {args.min_quote}")
             for r in sorted(weak, key=lambda r: r["score"])[:8]:
-                print(f"  {r['score']:>5}  {r['date']}  {r['text'][:62]}")
+                print(f"  {r['score']:>5}  {r['text'][:62]}")
             failed = True
-
     if args.min_today:
         import datetime as _dt
         today = _dt.datetime.now(_dt.timezone.utc).date().isoformat()
         mine = [r for r in rows if r["date"] == today]
         if not mine:
-            print(f"\nERROR: no quote dated {today} to score")
+            print(f"\nERROR: no quote dated {today}")
             failed = True
         elif mine[0]["score"] < args.min_today:
-            print(f"\nERROR: today's quote scores {mine[0]['score']}, "
-                  f"below the front-page floor {args.min_today}")
-            print(f"  {mine[0]['text']}")
+            print(f"\nERROR: today's quote scores {mine[0]['score']}, floor {args.min_today}")
             failed = True
         else:
-            print(f"\n  today's quote scores {mine[0]['score']} "
-                  f"(front-page floor {args.min_today})")
-
+            print(f"\n  today's quote scores {mine[0]['score']}")
     return 1 if failed else 0
 
 

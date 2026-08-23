@@ -18,7 +18,11 @@ python3 tools/publish_daily.py --check
 #   --min-mean   corpus average must not fall
 #   --min-quote  no single quote may be worse than the current floor
 #   --min-today  the front page carries a higher bar than the archive
-python3 tools/rate_quotes.py --min-mean 5.25 --min-quote 2.5 --min-today 4.0
+# The scorer must first be shown to rank the target register above the
+# pastiche it previously rewarded. An internally consistent rubric can
+# still be externally wrong; ordering is what catches that.
+python3 tools/validate_scorer.py
+python3 tools/rate_quotes.py --min-mean 6.80 --min-quote 4.0 --min-today 6.0
 
 # Regenerate the markdown from the quote data. _posts/ is derived, not
 # authored: _data/quotes/*.json is the source of truth.
