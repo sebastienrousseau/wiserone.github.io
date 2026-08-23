@@ -102,8 +102,25 @@ def main() -> None:
     for quote in quotes:
         write(f"{slug(quote['date_added'])}.md", quote_page(quote))
 
-    today = dt.date.today()
-    chosen = quotes[today.timetuple().tm_yday % len(quotes)]
+    # The front page shows the quote dated today. Selecting by date is
+    # what makes the visible date correct: the previous
+    # `quotes[day_of_year % len(quotes)]` rotation displayed the chosen
+    # quote's own date_added, so the page announced "25 February 2024"
+    # whatever day it actually was.
+    #
+    # If today has no quote — the pool has run dry — fall back to the
+    # most recent one and say so loudly, because the front page silently
+    # showing a stale date is exactly the failure being fixed here.
+    today = dt.datetime.now(dt.timezone.utc).date()
+    by_date = {slug(q["date_added"]): q for q in quotes}
+    chosen = by_date.get(today.isoformat())
+    if chosen is None:
+        chosen = quotes[-1]
+        print(
+            f"WARNING: no quote dated {today.isoformat()}; "
+            f"falling back to {slug(chosen['date_added'])}. "
+            "Add quotes to _data/quotes/ or run tools/publish_daily.py."
+        )
     index = quote_page(chosen).replace('layout: "quote"', 'layout: "index"', 1)
     index = re.sub(r'^permalink: .*$', f'permalink: "{BASE}/"', index,
                    count=1, flags=re.M)

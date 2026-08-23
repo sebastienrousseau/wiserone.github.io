@@ -3,11 +3,11 @@ name: Build and Deploy
 on:
   push:
     branches: [main]
-  # The index shows the quote for the current day, chosen by
-  # day-of-year. Without a scheduled build the site would freeze on
-  # whatever day it was last pushed, so rebuild every morning.
+  # The front page shows the quote dated today, so the site must be
+  # rebuilt as the UTC day turns. Without this it would freeze on
+  # whatever day the last push happened.
   schedule:
-    - cron: "17 5 * * *"
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 permissions:
@@ -45,6 +45,10 @@ jobs:
           echo "built ${pages} pages"
           [ "$pages" -ge 60 ] || { echo "::error::only ${pages} pages built, expected >= 60"; exit 1; }
           grep -q '<blockquote>' public/index.html || { echo "::error::index.html has no rendered quote"; exit 1; }
+          # The front page must show today's date, not a stale one — the
+          # original bug was a page dated 2024 being served as "today".
+          today=$(date -u +%-d\ %B\ %Y)
+          grep -q "$today" public/index.html || { echo "::error::index.html does not show today ($today)"; exit 1; }
           # ssg's own sitemap plugin emits an empty urlset on a clean
           # build, which is invisible unless asserted on.
           urls=$(grep -c '<url>' public/sitemap.xml || true)

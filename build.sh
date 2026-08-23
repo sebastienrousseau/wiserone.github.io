@@ -2,6 +2,13 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+# Corpus quality and daily-runway gates. The first refuses duplicates,
+# near-duplicates and famous quotations attributed to The Wiser One; the
+# second refuses to publish a site whose front page has no quote for
+# today, or that is about to run dry.
+python3 tools/check_quotes.py
+python3 tools/publish_daily.py --check
+
 # Regenerate the markdown from the quote data. _posts/ is derived, not
 # authored: _data/quotes/*.json is the source of truth.
 python3 tools/build_posts.py
