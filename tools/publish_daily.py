@@ -1,50 +1,49 @@
 #!/usr/bin/env python3
 """Daily publishing helper for the quote of the day.
 
-The site shows the quote whose `date_added` falls on today's UTC date,
-so publishing is really two questions: is there a quote for today, and
-how many days remain before the corpus runs dry?
+Dates no longer own quotes. `_data/quotes/quotes.json` is a pool, and
+`build_posts.py` maps each date onto it by `ordinal % len(pool)`, so
+the front page can never run dry — the failure that started all this,
+where the site sat on 25 February 2024 for months.
+
+That removes the old "runway" question and replaces it with a
+different one: is the pool deep enough that a reader does not notice
+the rotation? At 138 quotes a given line returns roughly every 4½
+months, which is the number --check defends.
 
 Usage:
 
     tools/publish_daily.py --check
-        Report today's quote and the remaining runway. Exits non-zero if
-        today has no quote, or if the runway is below --min-runway.
+        Report today's quote, the pool depth, and the rotation period.
+        Exits non-zero if the pool is below --min-pool.
 
-    tools/publish_daily.py --add "A new aphorism." [--date YYYY-MM-DD]
-        Append a quote. Without --date it takes the first free date
-        after the last one, so the queue extends rather than collides.
+    tools/publish_daily.py --add "A new aphorism."
+        Append a quote to the pool. Lengthens the rotation for every
+        date at once; there is no date to choose.
 
 Adding is deliberately manual. These lines are written, not generated:
-a script that invented them unattended would fill the archive with
-filler, which is the opposite of the point.
+a script that invented them unattended would fill the pool with filler,
+which is the opposite of the point.
 """
 
 from __future__ import annotations
 
 import argparse
 import datetime as dt
-import glob
 import json
 import pathlib
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-QUOTES = ROOT / "_data" / "quotes"
+POOL = ROOT / "_data" / "quotes" / "quotes.json"
 IMAGE = "https://cloudcdn.pro/stocks/images/vitalis-hirschmann-4ErRQkRiOv4.webp"
 AUTHOR = "The Wiser One"
 
 
-def files() -> list[pathlib.Path]:
-    return [pathlib.Path(p) for p in sorted(glob.glob(str(QUOTES / "*.json")))]
-
-
 def load() -> list[dict]:
-    out: list[dict] = []
-    for path in files():
-        out.extend(json.loads(path.read_text())["quotes"])
-    out.sort(key=lambda q: q["date_added"])
-    return out
+    pool = json.loads(POOL.read_text())["quotes"]
+    pool.sort(key=lambda q: q["id"])
+    return pool
 
 
 def today() -> dt.date:
@@ -52,33 +51,27 @@ def today() -> dt.date:
 
 
 def cmd_check(args: argparse.Namespace) -> int:
-    quotes = load()
-    by_date = {q["date_added"][:10]: q for q in quotes}
+    pool = load()
     now = today()
-    current = by_date.get(now.isoformat())
-
-    future = sorted(d for d in by_date if d > now.isoformat())
-    runway = len(future)
+    if not pool:
+        print("ERROR: the pool is empty")
+        return 1
+    current = pool[now.toordinal() % len(pool)]
 
     print(f"  today            {now.isoformat()}")
-    if current:
-        print(f"  today's quote    {current['quote_text']}")
-    else:
-        print("  today's quote    MISSING")
-    print(f"  corpus           {len(quotes)} quotes")
-    print(f"  runway           {runway} day(s) after today")
+    print(f"  today's quote    {current['quote_text']}")
+    print(f"  pool             {len(pool)} quotes")
+    print(f"  rotation         every {len(pool)} days "
+          f"(~{len(pool) / 30.4:.1f} months)")
+    print(f"  next repeat      "
+          f"{(now + dt.timedelta(days=len(pool))).isoformat()}")
 
-    failed = False
-    if current is None:
-        print("\nERROR: no quote for today; the front page would show a stale date.")
-        failed = True
-    if runway < args.min_runway:
-        print(
-            f"\nERROR: only {runway} day(s) of quotes remain "
-            f"(minimum {args.min_runway}). Add more with --add."
-        )
-        failed = True
-    return 1 if failed else 0
+    if len(pool) < args.min_pool:
+        print(f"\nERROR: pool is {len(pool)}, minimum {args.min_pool}. "
+              "A rotation this short is visible to a returning reader. "
+              "Add more with --add.")
+        return 1
+    return 0
 
 
 def cmd_add(args: argparse.Namespace) -> int:
@@ -87,43 +80,32 @@ def cmd_add(args: argparse.Namespace) -> int:
         print("ERROR: empty quote")
         return 1
 
-    quotes = load()
-    if any(q["quote_text"].strip() == text for q in quotes):
+    pool = load()
+    if any(q["quote_text"].strip() == text for q in pool):
         print("ERROR: that quote already exists")
         return 1
 
-    used = {q["date_added"][:10] for q in quotes}
-    if args.date:
-        target = dt.date.fromisoformat(args.date)
-        if target.isoformat() in used:
-            print(f"ERROR: {target.isoformat()} already has a quote")
-            return 1
-    else:
-        last = max(dt.date.fromisoformat(d) for d in used)
-        target = last + dt.timedelta(days=1)
-
-    latest = files()[-1]
-    data = json.loads(latest.read_text())
-    data["quotes"].append({
+    pool.append({
+        "id": max((q["id"] for q in pool), default=-1) + 1,
         "quote_text": text,
         "author": AUTHOR,
-        "date_added": f"{target.isoformat()}T06:06:06Z",
+        "date_added": f"{today().isoformat()}T06:06:06Z",
         "image_url": IMAGE,
     })
-    data["quotes"].sort(key=lambda q: q["date_added"])
-    latest.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
-    print(f"  added for {target.isoformat()} in {latest.name}")
+    POOL.write_text(json.dumps({"quotes": pool}, indent=2,
+                               ensure_ascii=False) + "\n")
+    print(f"  pool is now {len(pool)}")
     print(f"  {text}")
     return 0
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--check", action="store_true", help="report today's quote and runway")
+    parser.add_argument("--check", action="store_true",
+                        help="report today's quote and pool depth")
     parser.add_argument("--add", metavar="TEXT", help="append a quote")
-    parser.add_argument("--date", metavar="YYYY-MM-DD", help="date for --add")
-    parser.add_argument("--min-runway", type=int, default=14,
-                        help="fail --check below this many future days (default 14)")
+    parser.add_argument("--min-pool", type=int, default=120,
+                        help="fail --check below this pool size (default 120)")
     args = parser.parse_args()
 
     if args.add:

@@ -1,0 +1,5 @@
+{
+  "note": "Date URLs published before the 2026-08-23 cut. These must never 404; build_posts maps each to a calibrated quote and canonicalises it to that quote's own page.",
+  "first": "2024-01-01",
+  "last": "2026-10-29"
+}

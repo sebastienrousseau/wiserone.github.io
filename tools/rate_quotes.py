@@ -231,6 +231,7 @@ def load() -> list[dict]:
     out: list[dict] = []
     for path in sorted(glob.glob(str(ROOT / "_data" / "quotes" / "*.json"))):
         out.extend(json.loads(pathlib.Path(path).read_text())["quotes"])
+    out.sort(key=lambda q: q.get("id", 0))
     return out
 
 
@@ -292,8 +293,21 @@ def main() -> int:
             failed = True
     if args.min_today:
         import datetime as _dt
-        today = _dt.datetime.now(_dt.timezone.utc).date().isoformat()
-        mine = [r for r in rows if r["date"] == today]
+        # Dates no longer own quotes: build_posts maps a date onto the
+        # pool by ordinal % len(pool). Look today up the same way, or
+        # this gate fails every day the pool happens not to contain a
+        # quote whose provenance date is today — which is every day.
+        # Import the generator's own map rather than reimplementing it:
+        # two copies of "which quote is today" would drift silently, and
+        # the gate would then be scoring a different line than the one
+        # the front page shows.
+        sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+        from build_posts import for_date, load_pool
+
+        today_d = _dt.datetime.now(_dt.timezone.utc).date()
+        today = today_d.isoformat()
+        chosen = for_date(load_pool(), today_d)
+        mine = [r for r in rows if r["text"] == chosen["quote_text"]]
         if not mine:
             print(f"\nERROR: no quote dated {today}")
             failed = True

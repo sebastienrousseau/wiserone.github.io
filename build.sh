@@ -22,7 +22,11 @@ python3 tools/publish_daily.py --check
 # pastiche it previously rewarded. An internally consistent rubric can
 # still be externally wrong; ordering is what catches that.
 python3 tools/validate_scorer.py
-python3 tools/rate_quotes.py --min-mean 6.80 --min-quote 4.0 --min-today 6.0
+# Floors re-cut after the 2026-08-23 corpus purge. The old 6.80 mean was
+# set against 1,033 quotes of which 895 were backfill; the surviving 138
+# average 7.90 and none scores below 6.17. These are ratchets — they
+# exist to catch a regression, not to be satisfied by a rewrite.
+python3 tools/rate_quotes.py --min-mean 7.75 --min-quote 6.0 --min-today 6.0
 
 # Regenerate the markdown from the quote data. _posts/ is derived, not
 # authored: _data/quotes/*.json is the source of truth.
@@ -71,29 +75,48 @@ find public -name '*.html' -exec \
 find public -name '*.html' -exec \
   sed -i -e 's/placeholder="Search documentation\.\.\."/placeholder="Search quotes…"/g' {} + 2>/dev/null || true
 
+# Repoint dated pages at the canonical page for the quote they show.
+# Must run before the sitemap, which decides membership by reading the
+# canonical tags this writes.
+python3 tools/canonicalise.py public
+
 # ssg's sitemap plugin emits an empty urlset on a clean build, so
 # rebuild it from what was actually written.
 python3 tools/make_sitemap.py public
 
-# _data/quotes/*.json is shared with the desktop and mobile apps, so the
-# site must render every quote it contains — no hand-written pages, none
-# dropped. Assert the counts match rather than trusting the generator.
+# Two contracts to hold. First, every quote in the pool must have a
+# canonical page. Second — and this is the one that matters after the
+# corpus cut — every date URL ever published must still resolve: 1,033
+# of them were live and indexed when the 895 backfill quotes were
+# deleted, and none of them may 404.
 python3 - <<'CHECK'
-import glob, json, pathlib, sys
-quotes = []
-for f in sorted(glob.glob("_data/quotes/*.json")):
-    d = json.loads(pathlib.Path(f).read_text())
-    quotes.extend(d.get("quotes", d))
-dates = {q["date_added"][:10] for q in quotes}
-built = {p.stem for p in pathlib.Path("public").glob("2*.html")}
-missing = sorted(dates - built)
-extra = sorted(built - dates)
-print(f"quotes in JSON: {len(dates)}; quote pages built: {len(built)}")
-if missing or extra:
-    if missing:
-        print(f"ERROR: {len(missing)} quote(s) in JSON with no page: {missing[:5]}")
-    if extra:
-        print(f"ERROR: {len(extra)} page(s) with no quote in JSON: {extra[:5]}")
+import datetime as dt, json, pathlib, sys
+sys.path.insert(0, "tools")
+from build_posts import assign_slugs, load_pool
+
+pool = load_pool()
+assign_slugs(pool)
+public = pathlib.Path("public")
+
+missing_q = [q["slug"] for q in pool
+             if not (public / "q" / q["slug"] / "index.html").exists()]
+
+legacy = json.loads(pathlib.Path("_data/legacy_range.json").read_text())
+first = dt.date.fromisoformat(legacy["first"])
+last = dt.date.fromisoformat(legacy["last"])
+today = dt.datetime.now(dt.timezone.utc).date()
+required = {first + dt.timedelta(days=n) for n in range((last - first).days + 1)}
+required |= {today + dt.timedelta(days=n) for n in range(31)}
+missing_d = [d.isoformat() for d in sorted(required)
+             if not (public / d.isoformat() / "index.html").exists()]
+
+print(f"pool: {len(pool)} quotes, {len(pool) - len(missing_q)} canonical pages; "
+      f"date URLs required {len(required)}, missing {len(missing_d)}")
+if missing_q:
+    print(f"ERROR: {len(missing_q)} quote(s) with no page: {missing_q[:5]}")
+if missing_d:
+    print(f"ERROR: {len(missing_d)} date URL(s) would 404: {missing_d[:5]}")
+if missing_q or missing_d:
     sys.exit(1)
 CHECK
 

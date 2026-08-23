@@ -1,41 +1,78 @@
 #!/usr/bin/env python3
-"""Generate the markdown ssg compiles, from the quote data.
+"""Generate the markdown ssg compiles, from the quote pool.
 
-`_data/quotes/*.json` is the source of truth. This writes one post per
-quote, plus the index, archive and supporting pages, into `_posts/`.
+`_data/quotes/quotes.json` is the source of truth: a pool of calibrated
+quotes, ordered and stable. It is deliberately small. Until 2026-08-23
+the corpus held 1,033 entries of which only 138 had been written by ear
+— the other 895 were machine-generated backfill in a register the site
+had long since abandoned, and they were what a reader saw 87% of the
+time. They were deleted.
 
-The index is chosen by date rather than fixed, so a scheduled rebuild
-publishes a different quote each day without anyone editing content.
-The selection is `day-of-year % len(quotes)`: deterministic for a given
-day, which keeps builds reproducible, and stable if the build reruns.
+That left a problem: 1,033 dated URLs were live and indexed. So dates no
+longer own quotes. Instead:
+
+  * Every quote gets one canonical page at `/q/<slug>.html`.
+  * Every date in the published range still resolves, at
+    `/YYYY-MM-DD.html`, showing the quote that date maps to.
+  * A date page's canonical points at the quote's own page, so the
+    duplication a cycling pool necessarily creates — each quote surfaces
+    on roughly every 138th date — never reads as duplicate content.
+
+The map is `date.toordinal() % len(pool)`: deterministic, so a rebuild
+of the same day yields the same page, and total, so the front page can
+never run dry again the way it did when it sat on 25 February 2024.
 """
 
 from __future__ import annotations
 
 import datetime as dt
-import glob
 import html
 import json
 import pathlib
 import re
+import unicodedata
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 POSTS = ROOT / "_posts"
 SITE = json.loads((ROOT / "_data" / "site.json").read_text())
 BASE = SITE["url"].rstrip("/")
 
-
-def load_quotes() -> list[dict]:
-    quotes: list[dict] = []
-    for path in sorted(glob.glob(str(ROOT / "_data" / "quotes" / "*.json"))):
-        data = json.loads(pathlib.Path(path).read_text())
-        quotes.extend(data.get("quotes", data))
-    quotes.sort(key=lambda q: q["date_added"])
-    return quotes
+# Dates published before the cut. They predate the pool and must never
+# 404; see _data/legacy_range.json.
+LEGACY = json.loads((ROOT / "_data" / "legacy_range.json").read_text())
+# Days ahead of today to pre-render, so today's permalink and the next
+# few days resolve between scheduled rebuilds.
+LOOKAHEAD = 30
 
 
-def slug(date_added: str) -> str:
-    return date_added[:10]
+def load_pool() -> list[dict]:
+    data = json.loads((ROOT / "_data" / "quotes" / "quotes.json").read_text())
+    pool = data["quotes"]
+    pool.sort(key=lambda q: q["id"])
+    return pool
+
+
+def slug(text: str, limit: int = 64) -> str:
+    """Stable, readable URL segment for a quote."""
+    s = unicodedata.normalize("NFKD", text.lower())
+    s = s.encode("ascii", "ignore").decode()
+    s = re.sub(r"[^a-z0-9]+", "-", s).strip("-")
+    if len(s) > limit:
+        s = s[:limit].rsplit("-", 1)[0]
+    return s
+
+
+def assign_slugs(pool: list[dict]) -> None:
+    seen: dict[str, int] = {}
+    for q in pool:
+        base = slug(q["quote_text"])
+        n = seen.get(base, 0)
+        seen[base] = n + 1
+        q["slug"] = base if n == 0 else f"{base}-{n + 1}"
+
+
+def for_date(pool: list[dict], date: dt.date) -> dict:
+    return pool[date.toordinal() % len(pool)]
 
 
 def summarise(text: str, limit: int = 155) -> str:
@@ -57,132 +94,131 @@ def front_matter(**fields: str) -> str:
 
 
 def write(name: str, body: str) -> None:
-    (POSTS / name).write_text(body, encoding="utf-8")
+    path = POSTS / name
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(body, encoding="utf-8")
 
 
-def quote_page(quote: dict) -> str:
-    date = slug(quote["date_added"])
-    pretty = dt.date.fromisoformat(date).strftime("%-d %B %Y")
+def quote_body(quote: dict, shown_date: dt.date | None, layout: str,
+               canonical: str, title: str | None = None) -> str:
+    """One rendered quote.
+
+    `canonical` is what ssg emits as rel=canonical and og:url. For a date
+    page that is deliberately NOT the page's own address — it is the
+    quote's canonical page, which is how the cycling pool avoids putting
+    eight near-identical URLs into the index for every quote.
+    """
     text = html.escape(quote["quote_text"])
     author = html.escape(quote["author"])
-    body = front_matter(
+    fields = dict(
         name=SITE["title"],
         short_name=SITE.get("short_name", SITE["title"]),
         keywords=SITE.get("keywords", ""),
-        title=f"{summarise(quote['quote_text'], 60)} — The Wiser One",
+        title=title or f"{summarise(quote['quote_text'], 60)} — The Wiser One",
         description=summarise(quote["quote_text"]),
         author=quote["author"],
-        date=date,
         language=SITE["language"],
-        layout="quote",
-        permalink=f"{BASE}/{date}.html",
+        layout=layout,
+        permalink=canonical,
     )
-    # Markdown, not raw HTML: ssg escapes embedded HTML in the body, so
-    # a hand-written <blockquote> arrives on the page as visible tags.
-    # The quote is the page's heading: every page needs exactly one h1
-    # for WAVE/Lighthouse, and the quote is what the page is about. A
-    # markdown heading inside the blockquote yields
-    # <blockquote><h1>…</h1><p>— author</p></blockquote>, which keeps the
-    # quotation semantics while giving the document its heading.
-    body += f"\n{pretty}\n\n> # {text}\n>\n> — {author}\n"
+    if shown_date is not None:
+        fields["date"] = shown_date.isoformat()
+    body = front_matter(**fields)
+    # Markdown, not raw HTML: ssg escapes embedded HTML in the body, so a
+    # hand-written <blockquote> arrives on the page as visible tags. The
+    # quote is the page's h1 — every page needs exactly one for
+    # WAVE/Lighthouse, and the quote is what the page is about.
+    if shown_date is not None:
+        body += f"\n{shown_date.strftime('%-d %B %Y')}\n"
+    body += f"\n> # {text}\n>\n> — {author}\n"
     if quote.get("image_url"):
         body += f'\n![]({quote["image_url"]})\n'
     return body
 
 
+def daterange(first: dt.date, last: dt.date):
+    for n in range((last - first).days + 1):
+        yield first + dt.timedelta(days=n)
+
+
 def main() -> None:
     POSTS.mkdir(exist_ok=True)
-    for stale in POSTS.glob("*.md"):
+    for stale in POSTS.rglob("*.md"):
         stale.unlink()
 
-    quotes = load_quotes()
-    if not quotes:
-        raise SystemExit("no quotes found in _data/quotes/*.json")
+    pool = load_pool()
+    if not pool:
+        raise SystemExit("no quotes in _data/quotes/quotes.json")
+    assign_slugs(pool)
 
-    for quote in quotes:
-        write(f"{slug(quote['date_added'])}.md", quote_page(quote))
-
-    # The front page shows the quote dated today. Selecting by date is
-    # what makes the visible date correct: the previous
-    # `quotes[day_of_year % len(quotes)]` rotation displayed the chosen
-    # quote's own date_added, so the page announced "25 February 2024"
-    # whatever day it actually was.
-    #
-    # If today has no quote — the pool has run dry — fall back to the
-    # most recent one and say so loudly, because the front page silently
-    # showing a stale date is exactly the failure being fixed here.
     today = dt.datetime.now(dt.timezone.utc).date()
-    by_date = {slug(q["date_added"]): q for q in quotes}
-    chosen = by_date.get(today.isoformat())
-    if chosen is None:
-        chosen = quotes[-1]
-        print(
-            f"WARNING: no quote dated {today.isoformat()}; "
-            f"falling back to {slug(chosen['date_added'])}. "
-            "Add quotes to _data/quotes/ or run tools/publish_daily.py."
-        )
-    index = quote_page(chosen).replace('layout: "quote"', 'layout: "index"', 1)
-    index = re.sub(r'^permalink: .*$', f'permalink: "{BASE}/"', index,
-                   count=1, flags=re.M)
-    index = re.sub(r'^title: .*$', f'title: "The Wiser One — {SITE["tagline"]}"',
-                   index, count=1, flags=re.M)
-    write("index.md", index)
 
+    # 1. Canonical page per quote — the only quote URLs in the sitemap.
+    for q in pool:
+        write(f"q/{q['slug']}.md",
+              quote_body(q, None, "quote", f"{BASE}/q/{q['slug']}/"))
+
+    # 2. Every previously-published date, plus a short runway ahead.
+    first = dt.date.fromisoformat(LEGACY["first"])
+    last = max(dt.date.fromisoformat(LEGACY["last"]),
+               today + dt.timedelta(days=LOOKAHEAD))
+    dates = list(daterange(first, last))
+    for d in dates:
+        q = for_date(pool, d)
+        write(f"{d.isoformat()}.md",
+              quote_body(q, d, "quote", f"{BASE}/q/{q['slug']}/"))
+
+    # 3. Front page — today's quote, canonical to the site root.
+    chosen = for_date(pool, today)
+    write("index.md",
+          quote_body(chosen, today, "index", f"{BASE}/",
+                     title=f"The Wiser One — {SITE['tagline']}"))
+
+    # 4. Archive lists the pool, not the dates: 138 real pages, not 1,000
+    #    rotations of them.
     rows = "\n".join(
-        f'- [{summarise(q["quote_text"], 80)}](/{slug(q["date_added"])}.html) '
-        f'— {dt.date.fromisoformat(slug(q["date_added"])).strftime("%-d %b %Y")}'
-        for q in reversed(quotes)
+        f'- [{summarise(q["quote_text"], 80)}](/q/{q["slug"]}/)'
+        for q in pool
     )
-    write(
-        "archive.md",
-        front_matter(
-            name=SITE["title"],
-            short_name=SITE.get("short_name", SITE["title"]),
-            keywords=SITE.get("keywords", ""),
-            title=f"Archive — {SITE['title']}",
-            description=f"Every quote published by The Wiser One — {len(quotes)} in all.",
-            author=SITE["author"],
-            language=SITE["language"],
-            layout="page",
-            permalink=f"{BASE}/archive.html",
-        )
-        + f"\n# Archive\n\n{len(quotes)} quotes, newest first.\n\n{rows}\n",
-    )
+    write("archive.md", front_matter(
+        name=SITE["title"],
+        short_name=SITE.get("short_name", SITE["title"]),
+        keywords=SITE.get("keywords", ""),
+        title=f"Archive — {SITE['title']}",
+        description=f"Every quote published by The Wiser One — {len(pool)} in all.",
+        author=SITE["author"],
+        language=SITE["language"],
+        layout="page",
+        permalink=f"{BASE}/archive/",
+    ) + f"\n# Archive\n\n{len(pool)} quotes.\n\n{rows}\n")
 
-    write(
-        "about.md",
-        front_matter(
-            name=SITE["title"],
-            short_name=SITE.get("short_name", SITE["title"]),
-            keywords=SITE.get("keywords", ""),
-            title=f"About — {SITE['title']}",
-            description=SITE["description"],
-            author=SITE["author"],
-            language=SITE["language"],
-            layout="page",
-            permalink=f"{BASE}/about.html",
-        )
-        + f"\n# About\n\n{SITE['description']}\n",
-    )
+    write("about.md", front_matter(
+        name=SITE["title"],
+        short_name=SITE.get("short_name", SITE["title"]),
+        keywords=SITE.get("keywords", ""),
+        title=f"About — {SITE['title']}",
+        description=SITE["description"],
+        author=SITE["author"],
+        language=SITE["language"],
+        layout="page",
+        permalink=f"{BASE}/about/",
+    ) + f"\n# About\n\n{SITE['description']}\n")
 
-    write(
-        "404.md",
-        front_matter(
-            name=SITE["title"],
-            short_name=SITE.get("short_name", SITE["title"]),
-            keywords=SITE.get("keywords", ""),
-            title="Not found — The Wiser One",
-            description="That page does not exist.",
-            author=SITE["author"],
-            language=SITE["language"],
-            layout="404",
-            permalink=f"{BASE}/404.html",
-        )
-        + "\n# Not found\n\nThat page does not exist.\n",
-    )
+    write("404.md", front_matter(
+        name=SITE["title"],
+        short_name=SITE.get("short_name", SITE["title"]),
+        keywords=SITE.get("keywords", ""),
+        title="Not found — The Wiser One",
+        description="That page does not exist.",
+        author=SITE["author"],
+        language=SITE["language"],
+        layout="404",
+        permalink=f"{BASE}/404.html",
+    ) + "\n# Not found\n\nThat page does not exist.\n")
 
-    print(f"generated {len(quotes)} quote pages + index, archive, about, 404")
-    print(f"index quote: {slug(chosen['date_added'])} (day {today.timetuple().tm_yday})")
+    print(f"pool {len(pool)} quotes → {len(pool)} canonical pages "
+          f"+ {len(dates)} date pages ({first} → {last})")
+    print(f"today {today}: {chosen['slug']}")
 
 
 if __name__ == "__main__":
