@@ -98,6 +98,27 @@ KNOWN_QUOTATIONS = [
     "the best people are self-managing",
     "my job is to make them better",
     "a small team of a plus players",
+    # Historical pushback moments. The spirit of these battles is fair
+    # material; the specific events and his descriptions of them are not,
+    # because a fictional narrator did not live them.
+    "removing the floppy",
+    "no floppy drive",
+    "nobody wants to buy a computer without",
+    "it's just a big iphone",
+    "a solution in search of a problem",
+    "who wants a stylus",
+    "you're holding it wrong",
+    "the rest of the industry laughed",
+    "they said it would never work",
+    "one thousand songs in your pocket",
+    # Being fired, and the beginner's-mind material that followed it.
+    "getting fired from apple",
+    "the best thing that could have ever happened to me",
+    "i didn't see it then",
+    "the heaviness of being successful",
+    "entered one of the most creative periods",
+    "beginner's mind",
+    "shoshin",
 ]
 
 
