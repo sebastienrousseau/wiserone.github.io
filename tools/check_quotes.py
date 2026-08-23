@@ -127,6 +127,16 @@ KNOWN_QUOTATIONS = [
     "sales guys running the company",
     "monopoly position",
     "product people get driven out",
+    # The romantic register — the phrasings this pillar drifts into.
+    "insanely great",
+    "make a dent in the universe",
+    "put a dent in the universe",
+    "a dent in the universe",
+    "singing their song",
+    "back into the pool of human experience",
+    "we're here to put a dent",
+    "the intersection of technology and liberal arts",
+    "a thousand no's for every yes",
 ]
 
 
