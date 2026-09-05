@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "The argument you keep avoiding is the thing you should have killed months ago.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

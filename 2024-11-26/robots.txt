@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/everyone-in-the-room-agreeing-is-a-warning-not-a-result/sitemap.xml

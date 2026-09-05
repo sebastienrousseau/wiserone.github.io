@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Ask a hundred people what they want and you'll get a list of what already exists.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

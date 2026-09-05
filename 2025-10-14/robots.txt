@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-best-work-is-a-gift-to-people-you-ll-never-know-it-s-just/sitemap.xml

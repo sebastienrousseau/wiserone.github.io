@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/falling-in-love-with-an-object-sounds-ridiculous-until-you-ve/sitemap.xml

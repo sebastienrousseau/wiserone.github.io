@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-ll-know-your-standards-are-real-the-first-time-you-throw/sitemap.xml

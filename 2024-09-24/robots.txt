@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-get-tired-of-being-the-reason-everyone-s-evening-got-longer/sitemap.xml

@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "You're going to die. That one fact deletes more bad decisions than a year of thinking.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

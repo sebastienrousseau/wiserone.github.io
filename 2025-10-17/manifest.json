@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Falling in love with an object sounds ridiculous until you've made one worth loving.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

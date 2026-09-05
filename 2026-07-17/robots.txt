@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/everything-great-you-ve-ever-used-was-somebody-s-obsession/sitemap.xml

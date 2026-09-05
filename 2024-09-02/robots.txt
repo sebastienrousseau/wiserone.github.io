@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/when-it-s-finally-right-you-feel-it-before-you-can-explain-it/sitemap.xml

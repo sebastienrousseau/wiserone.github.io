@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Most of what you're protecting won't outlive you. Spend it now.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

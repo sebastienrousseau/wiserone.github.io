@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Working with people who are better than you on something that matters is as good as it gets.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

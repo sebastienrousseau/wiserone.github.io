@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-ll-be-the-only-one-who-can-see-it-for-a-while-that-isn-t/sitemap.xml

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-ground-doesn-t-care-what-people-thought-of-you-that-s-the/sitemap.xml

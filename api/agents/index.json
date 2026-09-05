@@ -1,0 +1,21 @@
+{
+  "api": "ssg-agent-api",
+  "counts": {
+    "posts": 1172,
+    "topics": 0
+  },
+  "links": {
+    "index": "https://wiserone.com/api/agents/index.json",
+    "person": "https://wiserone.com/api/agents/person.json",
+    "posts": "https://wiserone.com/api/agents/posts.json",
+    "topics": "https://wiserone.com/api/agents/topics.json"
+  },
+  "site": {
+    "description": "A daily dose of wisdom. One quote a day from The Wiser One.",
+    "language": "en-GB",
+    "name": "wiserone",
+    "title": "The Wiser One",
+    "url": "https://wiserone.com"
+  },
+  "version": "0.0.56"
+}

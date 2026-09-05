@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "The hard part isn't knowing. It's being the only one who knows and going anyway.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

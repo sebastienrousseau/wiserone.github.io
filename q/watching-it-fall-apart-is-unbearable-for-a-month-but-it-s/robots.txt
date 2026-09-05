@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/watching-it-fall-apart-is-unbearable-for-a-month-but-it-s/sitemap.xml

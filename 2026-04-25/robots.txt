@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/most-people-can-t-make-things-simple-because-they-can-t-stand/sitemap.xml

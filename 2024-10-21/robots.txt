@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/a-long-list-is-what-you-make-instead-of-a-decision/sitemap.xml

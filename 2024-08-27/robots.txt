@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-can-t-schedule-taste-you-hire-it-and-then-you-leave-it-alone/sitemap.xml

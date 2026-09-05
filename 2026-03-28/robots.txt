@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-stop-being-able-to-unsee-things-that-s-the-real-exhaustion/sitemap.xml

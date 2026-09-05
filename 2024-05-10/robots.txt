@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/once-in-a-while-you-want-somebody-else-to-spot-it-first-so-you/sitemap.xml

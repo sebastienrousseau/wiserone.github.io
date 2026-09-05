@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/simple-isn-t-a-style-you-pick-it-s-what-s-left-when-you-refuse/sitemap.xml

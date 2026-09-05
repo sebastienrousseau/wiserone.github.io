@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "You cut far more than you keep. That isn't restraint, that's the work.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

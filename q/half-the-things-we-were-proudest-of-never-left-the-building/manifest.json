@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Half the things we were proudest of never left the building. That isn't waste, that's taste.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

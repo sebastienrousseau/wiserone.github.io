@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/a-system-should-make-good-work-easy-most-of-them-just-make-bad/sitemap.xml

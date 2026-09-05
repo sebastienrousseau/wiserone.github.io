@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "What you've already spent isn't a reason. It's just why it hurts.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}
