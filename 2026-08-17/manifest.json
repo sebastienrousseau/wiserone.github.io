@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "The best thing on your list gets ruined by the third best thing on your list.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

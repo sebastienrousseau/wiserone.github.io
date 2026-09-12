@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "If it's still complicated, you didn't finish. You stopped.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

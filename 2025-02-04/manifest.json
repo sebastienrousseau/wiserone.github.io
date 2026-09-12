@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "It costs something to be the only one who won't settle, and mostly what it costs is company.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

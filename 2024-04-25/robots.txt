@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-moment-it-finally-works-is-worth-every-miserable-week-that/sitemap.xml

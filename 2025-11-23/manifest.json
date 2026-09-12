@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Killing good work feels like losing. It's the only way anything great gets out the door.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

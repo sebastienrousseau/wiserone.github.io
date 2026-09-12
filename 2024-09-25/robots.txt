@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/there-s-a-particular-exhaustion-in-noticing-you-can-t-switch-it/sitemap.xml

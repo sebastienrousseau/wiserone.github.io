@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Nobody's going to open it up and check. You'll know. That's the entire reason.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

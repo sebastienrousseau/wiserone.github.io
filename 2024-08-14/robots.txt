@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-day-you-stop-being-the-authority-is-the-day-you-can-try/sitemap.xml

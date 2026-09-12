@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Fear of looking stupid dies the second you remember you're on a clock.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

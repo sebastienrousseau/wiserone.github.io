@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/showing-people-something-they-didn-t-ask-for-is-the-whole-job/sitemap.xml

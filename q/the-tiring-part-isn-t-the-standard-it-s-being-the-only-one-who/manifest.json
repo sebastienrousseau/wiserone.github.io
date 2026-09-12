@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "The tiring part isn't the standard. It's being the only one who sees what's wrong with it.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "You're not giving people what they asked for. You're taking responsibility for what they'll want.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

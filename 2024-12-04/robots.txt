@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/trusting-your-gut-is-cheap-until-your-name-is-on-it/sitemap.xml

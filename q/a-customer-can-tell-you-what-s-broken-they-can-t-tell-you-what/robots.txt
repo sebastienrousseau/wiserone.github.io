@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/a-customer-can-tell-you-what-s-broken-they-can-t-tell-you-what/sitemap.xml

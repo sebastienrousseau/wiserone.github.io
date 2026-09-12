@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "The stuff you don't ship is doing work too. It's keeping the rest of it clean.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "You don't get to great by adding. You get there by having the nerve to take things out.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}
