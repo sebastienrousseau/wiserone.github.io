@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-point-isn-t-that-they-remember-who-you-were-it-s-that-you/sitemap.xml

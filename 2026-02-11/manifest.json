@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Being the expert costs more than it pays. You spend the whole time defending the last idea.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/talent-is-common-finding-people-who-won-t-settle-is-the-hard/sitemap.xml

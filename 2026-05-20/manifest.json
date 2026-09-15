@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Committees don't make things. They make things safe, which is the same as making them dull.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}
