@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/say-no-to-a-hundred-good-things-that-s-the-only-way-the-great/sitemap.xml

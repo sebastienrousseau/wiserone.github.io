@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-don-t-get-to-great-by-adding-you-get-there-by-having-the/sitemap.xml

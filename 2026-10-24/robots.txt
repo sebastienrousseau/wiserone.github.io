@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/a-big-team-is-what-you-build-when-you-don-t-know-which-five/sitemap.xml

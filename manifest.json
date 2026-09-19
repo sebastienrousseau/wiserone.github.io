@@ -1,0 +1,11 @@
+{
+  "background_color": "#ffffff",
+  "description": "You can't take your reputation with you. Stop managing it and go do the work.",
+  "display": "standalone",
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

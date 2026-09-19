@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/big-companies-don-t-die-of-bad-ideas-they-die-of-the-procedures/sitemap.xml
