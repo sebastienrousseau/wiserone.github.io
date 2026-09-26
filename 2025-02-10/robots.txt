@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-d-love-to-let-it-go-that-s-the-part-nobody-believes-about/sitemap.xml

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/most-of-what-you-re-protecting-won-t-outlive-you-spend-it-now/sitemap.xml

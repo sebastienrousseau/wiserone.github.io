@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/what-you-ve-already-spent-isn-t-a-reason-it-s-just-why-it-hurts/sitemap.xml

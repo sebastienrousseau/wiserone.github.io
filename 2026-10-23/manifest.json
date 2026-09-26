@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "You can't teach someone to care. You can only find the ones who already do.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

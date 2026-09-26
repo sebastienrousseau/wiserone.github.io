@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-end-is-the-only-boundary-that-makes-people-honest-about/sitemap.xml

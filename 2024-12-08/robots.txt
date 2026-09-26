@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-can-be-talked-out-of-anything-you-haven-t-decided-to-defend/sitemap.xml

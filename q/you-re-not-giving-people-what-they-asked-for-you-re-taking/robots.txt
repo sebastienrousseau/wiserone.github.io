@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-re-not-giving-people-what-they-asked-for-you-re-taking/sitemap.xml
