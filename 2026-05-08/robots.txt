@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/pride-is-heavy-and-you-re-carrying-it-toward-a-hole-in-the/sitemap.xml

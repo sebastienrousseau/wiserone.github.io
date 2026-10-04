@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/a-group-will-never-approve-the-thing-that-scares-it-that-s/sitemap.xml

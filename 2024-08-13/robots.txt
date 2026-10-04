@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/expertise-is-mostly-a-list-of-things-you-ve-quietly-stopped/sitemap.xml

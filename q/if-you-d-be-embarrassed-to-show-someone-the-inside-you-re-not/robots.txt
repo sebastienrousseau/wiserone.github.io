@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/if-you-d-be-embarrassed-to-show-someone-the-inside-you-re-not/sitemap.xml

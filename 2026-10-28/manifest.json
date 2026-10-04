@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Talent is common. Finding people who won't settle is the hard part.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

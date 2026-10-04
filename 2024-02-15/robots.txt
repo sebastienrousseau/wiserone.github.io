@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-parts-a-customer-never-sees-are-the-ones-that-tell-you/sitemap.xml

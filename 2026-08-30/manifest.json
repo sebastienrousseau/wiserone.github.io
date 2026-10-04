@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Some things work fine and still have to go. That's the part almost nobody can do.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

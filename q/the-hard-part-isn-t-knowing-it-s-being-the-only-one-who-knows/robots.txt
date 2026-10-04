@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-hard-part-isn-t-knowing-it-s-being-the-only-one-who-knows/sitemap.xml

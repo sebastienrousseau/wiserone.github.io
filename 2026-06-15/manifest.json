@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Somebody has to go first, and going first means being wrong in public for a while.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

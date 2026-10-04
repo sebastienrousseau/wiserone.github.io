@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-don-t-find-focus-you-make-it-by-throwing-out-everything/sitemap.xml
