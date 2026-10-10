@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-can-t-take-your-reputation-with-you-stop-managing-it-and-go/sitemap.xml

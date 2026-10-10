@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-end-doesn-t-make-life-sad-it-makes-the-choices-simple/sitemap.xml

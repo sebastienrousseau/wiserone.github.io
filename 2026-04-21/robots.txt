@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/complicated-is-what-you-ship-when-you-run-out-of-time-to-think/sitemap.xml

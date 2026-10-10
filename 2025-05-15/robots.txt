@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/being-the-expert-costs-more-than-it-pays-you-spend-the-whole/sitemap.xml

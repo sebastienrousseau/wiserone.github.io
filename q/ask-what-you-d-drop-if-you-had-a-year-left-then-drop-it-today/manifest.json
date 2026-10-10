@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Ask what you'd drop if you had a year left. Then drop it today, because you might.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

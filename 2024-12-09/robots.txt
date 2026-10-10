@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/one-person-who-cares-will-outwork-ten-who-are-merely-qualified/sitemap.xml

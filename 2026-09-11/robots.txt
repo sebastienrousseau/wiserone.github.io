@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-have-to-understand-the-whole-thing-before-you-can-cut-it/sitemap.xml
