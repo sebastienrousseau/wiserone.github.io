@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/every-feature-we-took-out-made-it-better-that-should-tell-you/sitemap.xml

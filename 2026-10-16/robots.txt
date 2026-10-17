@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-don-t-get-the-proof-first-you-get-it-after-you-ve-spent-the/sitemap.xml

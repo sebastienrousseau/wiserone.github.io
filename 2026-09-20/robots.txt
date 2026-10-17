@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/ask-what-you-d-drop-if-you-had-a-year-left-then-drop-it-today/sitemap.xml

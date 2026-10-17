@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/every-mediocre-hire-costs-you-two-great-ones-they-take-the-seat/sitemap.xml

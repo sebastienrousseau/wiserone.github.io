@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-ll-remember-three-or-four-projects-make-sure-you-actually/sitemap.xml

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/every-time-you-stop-the-room-you-spend-a-little-of-whatever/sitemap.xml

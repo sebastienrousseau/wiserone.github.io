@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "A customer can tell you what's broken. They can't tell you what's missing.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

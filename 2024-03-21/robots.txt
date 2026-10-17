@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/somebody-has-to-go-first-and-going-first-means-being-wrong-in/sitemap.xml

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/some-days-you-hope-nobody-points-at-the-flaw-because-then-you-d/sitemap.xml
