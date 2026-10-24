@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/cutting-a-corner-nobody-sees-still-cuts-the-corner/sitemap.xml

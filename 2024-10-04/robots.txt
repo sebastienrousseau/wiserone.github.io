@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/focus-costs-you-things-you-like-if-it-doesn-t-hurt-a-bit-you/sitemap.xml

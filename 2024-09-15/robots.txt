@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-look-at-six-months-of-somebody-s-work-and-say-start-over/sitemap.xml

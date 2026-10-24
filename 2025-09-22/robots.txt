@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/people-will-tell-you-it-s-obvious-about-a-year-after-they-told/sitemap.xml

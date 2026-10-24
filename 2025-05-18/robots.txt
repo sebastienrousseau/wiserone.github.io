@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/success-makes-you-careful-and-careful-is-the-slowest-way-to-work/sitemap.xml

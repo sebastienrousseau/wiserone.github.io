@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/nobody-s-going-to-open-it-up-and-check-you-ll-know-that-s-the/sitemap.xml

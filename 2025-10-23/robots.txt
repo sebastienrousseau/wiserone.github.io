@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/life-is-too-short-to-make-things-you-d-be-ashamed-to-sign/sitemap.xml

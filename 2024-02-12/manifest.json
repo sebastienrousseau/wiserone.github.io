@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Pride is heavy, and you're carrying it toward a hole in the ground.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

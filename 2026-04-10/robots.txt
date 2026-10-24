@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-argument-you-keep-avoiding-is-the-thing-you-should-have/sitemap.xml

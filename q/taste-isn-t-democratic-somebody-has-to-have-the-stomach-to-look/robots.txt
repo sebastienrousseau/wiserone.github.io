@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/taste-isn-t-democratic-somebody-has-to-have-the-stomach-to-look/sitemap.xml

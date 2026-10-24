@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "You stop being able to unsee things. That's the real exhaustion.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-best-thing-on-your-list-gets-ruined-by-the-third-best-thing/sitemap.xml

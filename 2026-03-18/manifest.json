@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Holding a line when everyone else is exhausted is incredibly lonely. They just want to go home, and you're the one holdi",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}
