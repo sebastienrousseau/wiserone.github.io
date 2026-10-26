@@ -78,3 +78,15 @@ jobs:
           publish_branch: gh-pages
           force_orphan: true
           commit_message: "Deploy site from ${{ github.sha }}"
+
+  # Deploys the gh-pages branch just published, with GitHub Actions
+  # (see pages.yml).
+  pages:
+    name: Deploy Pages
+    needs: build-and-deploy
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/pages.yml
