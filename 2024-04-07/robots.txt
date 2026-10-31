@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/fear-of-looking-stupid-dies-the-second-you-remember-you-re-on-a/sitemap.xml

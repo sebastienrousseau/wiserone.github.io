@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/there-s-a-rhythm-to-happiness-that-begins-the-moment-you-stop/sitemap.xml

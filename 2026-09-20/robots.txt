@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/everything-you-cut-is-time-the-rest-of-it-gets/sitemap.xml

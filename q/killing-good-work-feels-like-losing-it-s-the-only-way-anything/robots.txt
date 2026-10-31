@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/killing-good-work-feels-like-losing-it-s-the-only-way-anything/sitemap.xml

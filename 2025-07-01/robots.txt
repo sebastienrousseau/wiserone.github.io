@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/getting-it-simple-takes-longer-and-looks-like-less-that-s-why/sitemap.xml

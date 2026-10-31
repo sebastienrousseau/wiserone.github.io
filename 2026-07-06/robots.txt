@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/life-has-a-beautiful-rhythm-when-you-stop-chasing-the-music-and/sitemap.xml

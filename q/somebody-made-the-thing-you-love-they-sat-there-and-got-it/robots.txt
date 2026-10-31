@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/somebody-made-the-thing-you-love-they-sat-there-and-got-it/sitemap.xml

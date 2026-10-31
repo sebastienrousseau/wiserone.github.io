@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-stars-don-t-need-a-perfect-night-to-shine-and-neither-does/sitemap.xml

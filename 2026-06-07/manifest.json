@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "You were never meant to spend your whole life searching for light. You were meant to discover how brightly you can shine",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

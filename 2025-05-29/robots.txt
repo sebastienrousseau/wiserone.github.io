@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/there-s-music-in-the-moment-and-magic-in-being-alive/sitemap.xml

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/there-is-a-version-of-today-filled-with-wonder-give-yourself/sitemap.xml

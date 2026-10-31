@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "The first reaction to anything genuinely new is discomfort. Sit with it instead of sanding it off.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

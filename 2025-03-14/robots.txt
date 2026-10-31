@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/give-yourself-permission-to-dance-through-life-even-when-you/sitemap.xml

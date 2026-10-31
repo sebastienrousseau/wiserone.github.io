@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Don't just make room for happiness in your life. Build a life where happiness feels at home.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

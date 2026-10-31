@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/let-the-light-of-a-thousand-possibilities-awaken-the-joy-that-s/sitemap.xml

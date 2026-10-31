@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-light-you-ve-been-looking-for-may-be-the-very-light-you-ve/sitemap.xml

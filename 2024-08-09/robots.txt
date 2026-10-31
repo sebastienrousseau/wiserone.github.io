@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/let-the-world-feel-a-little-brighter-because-you-chose-to-bring/sitemap.xml

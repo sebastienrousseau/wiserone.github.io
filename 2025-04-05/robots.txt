@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/find-the-rhythm-that-makes-your-heart-come-alive-and-let-the/sitemap.xml

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-light-of-tomorrow-begins-with-the-beautiful-possibilities/sitemap.xml

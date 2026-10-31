@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/one-of-life-s-greatest-gifts-is-discovering-that-your-happiness/sitemap.xml

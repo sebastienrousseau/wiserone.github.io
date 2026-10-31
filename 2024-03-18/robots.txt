@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-easiest-trap-is-keeping-something-alive-just-because-you-ve/sitemap.xml

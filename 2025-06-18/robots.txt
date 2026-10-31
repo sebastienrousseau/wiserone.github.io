@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-hardest-thing-to-cut-is-the-part-you-thought-of/sitemap.xml

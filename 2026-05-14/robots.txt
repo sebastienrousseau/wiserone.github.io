@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-best-years-are-the-ones-where-you-were-slightly-out-of-your/sitemap.xml

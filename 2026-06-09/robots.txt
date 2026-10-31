@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-moment-you-realize-your-happiness-belongs-to-you-the-whole/sitemap.xml

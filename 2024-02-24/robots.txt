@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/let-your-heart-be-free-your-dreams-be-bright-and-your-days-be/sitemap.xml

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/may-you-always-find-a-little-magic-between-the-last-star-of/sitemap.xml

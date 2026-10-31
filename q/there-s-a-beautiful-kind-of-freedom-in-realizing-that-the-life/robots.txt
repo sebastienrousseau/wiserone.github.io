@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/there-s-a-beautiful-kind-of-freedom-in-realizing-that-the-life/sitemap.xml

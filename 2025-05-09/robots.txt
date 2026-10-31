@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/what-if-the-magic-you-ve-been-waiting-to-discover-is-the-joy-of/sitemap.xml

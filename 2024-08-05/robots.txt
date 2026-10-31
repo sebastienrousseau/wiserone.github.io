@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/every-new-day-carries-a-thousand-little-invitations-to-fall-in/sitemap.xml

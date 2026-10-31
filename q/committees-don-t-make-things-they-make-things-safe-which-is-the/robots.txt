@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/committees-don-t-make-things-they-make-things-safe-which-is-the/sitemap.xml

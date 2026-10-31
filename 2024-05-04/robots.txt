@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-room-will-have-data-and-you-ll-have-a-feeling-sometimes-the/sitemap.xml

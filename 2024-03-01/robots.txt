@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/let-the-stars-inspire-you-and-the-sunshine-remind-you-how/sitemap.xml

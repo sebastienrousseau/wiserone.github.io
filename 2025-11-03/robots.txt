@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-future-isn-t-just-something-to-prepare-for-it-s-something/sitemap.xml

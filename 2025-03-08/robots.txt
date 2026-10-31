@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-were-never-meant-to-spend-your-whole-life-searching-for/sitemap.xml

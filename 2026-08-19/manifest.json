@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Some nights are made for dreaming. Some mornings are made for making those dreams come alive.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/sometimes-joy-needs-no-reason-no-explanation-and-no-destination/sitemap.xml
