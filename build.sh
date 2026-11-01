@@ -110,9 +110,21 @@ python3 tools/heading_ids.py public
 
 python3 tools/retire_redirects.py public
 
+# The old CLI-built site named date pages /YYYY_MM_DD.html, and Google
+# still asks for them; /q/ has no index of its own. Redirect both.
+python3 tools/legacy_redirects.py public
+
+# ssg stamps a canonical on the 404 page too; a 404 must not name one.
+# Before the sitemap, which skips noindex pages.
+python3 tools/not_found.py public
+
 # ssg's sitemap plugin emits an empty urlset on a clean build, so
 # rebuild it from what was actually written.
 python3 tools/make_sitemap.py public
+
+# Hold the Search Console fixes: legacy URLs resolve, the 404 page is
+# noindex with no canonical, and the sitemap leaves it out.
+python3 tools/check_indexing.py public
 
 # Two contracts to hold. First, every quote in the pool must have a
 # canonical page. Second — and this is the one that matters after the

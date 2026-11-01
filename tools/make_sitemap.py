@@ -38,6 +38,9 @@ SKIP_NAMES = {"/404/"}
 CANONICAL = re.compile(
     r'<link[^>]+rel=["\']canonical["\'][^>]*href=["\']([^"\']+)["\']',
     re.I)
+NOINDEX = re.compile(
+    r'<meta[^>]+name=["\']robots["\'][^>]*content=["\'][^"\']*noindex',
+    re.I)
 
 
 def self_canonical(page: pathlib.Path, loc: str) -> bool:
@@ -47,7 +50,13 @@ def self_canonical(page: pathlib.Path, loc: str) -> bool:
     a date view of a pooled quote — and belongs out of the sitemap. A
     page with no canonical at all is kept: absence is not a disclaimer.
     """
-    m = CANONICAL.search(page.read_text(encoding="utf-8", errors="replace"))
+    text = page.read_text(encoding="utf-8", errors="replace")
+    # A noindex page asks to stay out of the index; listing it here
+    # would contradict that. The 404 page is the one that needs it: it
+    # carries no canonical, and absence alone would let it in.
+    if NOINDEX.search(text):
+        return False
+    m = CANONICAL.search(text)
     if not m:
         return True
     declared = m.group(1).rstrip("/")

@@ -1,0 +1,11 @@
+# Keeps the workflow actions current. The site has no package manifest;
+# ssg is installed at its latest release on every build.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      github-actions:
+        patterns: ["*"]
