@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "You learn more in the year after a project collapses than in the five years you spent making it work.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/a-big-company-will-take-someone-s-raw-conviction-and-turn-it/sitemap.xml

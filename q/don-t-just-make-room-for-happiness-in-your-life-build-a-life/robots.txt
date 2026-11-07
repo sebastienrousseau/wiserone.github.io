@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/don-t-just-make-room-for-happiness-in-your-life-build-a-life/sitemap.xml

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/consensus-is-just-the-average-of-everyone-s-fear/sitemap.xml

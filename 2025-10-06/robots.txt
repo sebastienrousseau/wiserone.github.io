@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/it-costs-something-to-be-the-only-one-who-won-t-settle-and/sitemap.xml

@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "May you always find a little magic between the last star of night and the first light of morning.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

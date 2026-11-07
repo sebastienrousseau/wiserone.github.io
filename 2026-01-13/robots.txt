@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/live-with-wonder-move-with-joy-and-believe-in-beautiful/sitemap.xml

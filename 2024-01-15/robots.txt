@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/follow-the-wonder-welcome-the-changes-and-let-tomorrow-surprise/sitemap.xml

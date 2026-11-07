@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/telling-people-who-tried-hard-that-it-isn-t-good-enough-is-the/sitemap.xml

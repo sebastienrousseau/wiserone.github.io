@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/some-things-work-fine-and-still-have-to-go-that-s-the-part/sitemap.xml

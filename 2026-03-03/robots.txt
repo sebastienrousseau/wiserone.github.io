@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/quality-is-what-you-do-after-the-review-is-over-and-nobody-s/sitemap.xml

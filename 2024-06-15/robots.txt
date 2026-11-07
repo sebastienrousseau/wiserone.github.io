@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-should-be-slightly-embarrassed-by-how-much-you-care-that-s/sitemap.xml

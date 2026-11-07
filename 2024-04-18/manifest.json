@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Quality is what you do after the review is over and nobody's watching.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

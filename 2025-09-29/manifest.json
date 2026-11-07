@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "You can spend your life making money, or you can spend it making things people keep. Pick one.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

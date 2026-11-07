@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/when-you-believe-in-the-beauty-of-your-own-life-something/sitemap.xml

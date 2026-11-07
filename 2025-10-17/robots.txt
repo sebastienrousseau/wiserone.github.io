@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/happiness-isn-t-always-something-you-find-sometimes-it-s-what/sitemap.xml

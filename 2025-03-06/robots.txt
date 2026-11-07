@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/let-your-happiness-be-louder-than-your-doubts-and-your-wonder/sitemap.xml

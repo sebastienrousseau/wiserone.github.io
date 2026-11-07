@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-re-not-doing-it-so-they-notice-you-re-doing-it-so-you-can/sitemap.xml

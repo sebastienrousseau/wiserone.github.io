@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Tomorrow holds beautiful surprises, but don't miss the wonder that is already here tonight.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

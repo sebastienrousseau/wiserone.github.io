@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/half-the-things-we-were-proudest-of-never-left-the-building/sitemap.xml

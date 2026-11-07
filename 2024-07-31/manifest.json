@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Sometimes the greatest adventure begins with a simple decision: I'm ready to enjoy my life.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/some-nights-are-made-for-dreaming-some-mornings-are-made-for/sitemap.xml

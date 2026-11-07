@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/anybody-can-make-it-complicated-that-s-the-default-getting-it/sitemap.xml

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-can-t-teach-someone-to-care-you-can-only-find-the-ones-who/sitemap.xml

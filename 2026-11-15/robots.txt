@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-people-worth-having-don-t-need-to-be-managed-they-just-need/sitemap.xml
