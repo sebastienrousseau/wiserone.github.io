@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/there-is-an-incredible-lightness-in-becoming-who-you-are/sitemap.xml

@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "People can't see the care. They can feel it, and they just know they like it.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

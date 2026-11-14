@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/sometimes-the-universe-feels-magical-because-you-ve-finally/sitemap.xml

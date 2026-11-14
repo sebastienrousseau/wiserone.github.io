@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "The people worth having don't need to be managed. They just need everyone else to get out of their way so they can build",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

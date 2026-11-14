@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-best-part-of-life-isn-t-knowing-what-comes-next-it-s/sitemap.xml

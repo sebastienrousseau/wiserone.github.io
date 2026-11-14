@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/people-confuse-simple-with-easy-simple-is-what-s-left-after-the/sitemap.xml

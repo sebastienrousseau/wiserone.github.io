@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/404.html/sitemap.xml

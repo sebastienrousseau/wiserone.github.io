@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-sweetest-moments-arrive-when-your-heart-is-open-and-your/sitemap.xml

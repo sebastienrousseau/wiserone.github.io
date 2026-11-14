@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/nothing-beats-a-room-full-of-people-who-all-refuse-to-ship/sitemap.xml

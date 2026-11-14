@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/anybody-can-follow-a-checklist-that-s-why-no-checklist-ever/sitemap.xml

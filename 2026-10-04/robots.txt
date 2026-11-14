@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/nothing-clears-a-calendar-like-remembering-how-it-ends/sitemap.xml

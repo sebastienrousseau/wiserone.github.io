@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/hire-someone-better-than-you-and-the-job-stops-being-management/sitemap.xml

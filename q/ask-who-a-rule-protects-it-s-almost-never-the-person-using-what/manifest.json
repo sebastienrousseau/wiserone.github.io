@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Ask who a rule protects. It's almost never the person using what you made.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

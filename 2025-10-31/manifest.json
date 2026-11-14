@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "The sunrise doesn't ask whether yesterday was perfect. It simply brings another chance for something beautiful.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

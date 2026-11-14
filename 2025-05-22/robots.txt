@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/every-sunrise-brings-a-new-melody-to-a-life-that-is-still/sitemap.xml

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/may-your-heart-stay-light-your-spirit-stay-free-and-your-joy/sitemap.xml

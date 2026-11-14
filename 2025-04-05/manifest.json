@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Find the rhythm that makes your heart come alive, and let the world dance with you.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

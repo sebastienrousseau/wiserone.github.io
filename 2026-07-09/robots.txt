@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/when-your-spirit-feels-free-even-an-ordinary-day-can-become-a/sitemap.xml

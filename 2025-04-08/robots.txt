@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/there-s-a-song-of-joy-waiting-inside-every-heart-brave-enough/sitemap.xml

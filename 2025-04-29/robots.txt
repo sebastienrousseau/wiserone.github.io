@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/let-happiness-lift-your-thoughts-let-wonder-fill-your-days-and/sitemap.xml

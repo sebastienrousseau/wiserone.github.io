@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/believe-in-the-light-within-you-and-watch-how-beautifully-it/sitemap.xml

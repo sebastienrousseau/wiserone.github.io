@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Happiness isn't always something you find. Sometimes it's what happens when you finally allow yourself to feel free.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

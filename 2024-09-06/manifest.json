@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Sometimes all it takes is one beautiful feeling to remind you how extraordinary life can be.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

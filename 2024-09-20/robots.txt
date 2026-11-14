@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/dance-with-the-sunshine-dream-beneath-the-stars-and-make-every/sitemap.xml

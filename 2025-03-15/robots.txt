@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/a-beautiful-life-isn-t-one-without-uncertainty-it-s-one-where/sitemap.xml

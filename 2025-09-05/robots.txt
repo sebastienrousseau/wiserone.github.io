@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/every-layer-of-approval-is-somebody-protecting-themselves-at/sitemap.xml

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-work-nobody-inspects-is-where-your-standards-actually-live/sitemap.xml

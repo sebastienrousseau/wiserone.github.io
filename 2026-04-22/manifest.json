@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Big companies don't die of bad ideas. They die of the procedures built to prevent them.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/working-with-people-who-are-better-than-you-on-something-that/sitemap.xml

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-magic-you-keep-searching-for-in-the-world-has-been-quietly/sitemap.xml

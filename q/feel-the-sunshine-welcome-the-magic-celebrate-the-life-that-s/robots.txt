@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/feel-the-sunshine-welcome-the-magic-celebrate-the-life-that-s/sitemap.xml

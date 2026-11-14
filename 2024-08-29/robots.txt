@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/every-sunrise-is-life-s-beautiful-reminder-that-the-light/sitemap.xml

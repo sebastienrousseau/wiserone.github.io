@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Everyone agrees with you afterwards. That's not the same as help.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

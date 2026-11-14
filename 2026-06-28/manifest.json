@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "What if today isn't just another day? What if it's the beginning of something wonderful?",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

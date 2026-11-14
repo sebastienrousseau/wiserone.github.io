@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/some-of-life-s-brightest-moments-begin-when-you-simply-open/sitemap.xml

@@ -1,0 +1,5 @@
+# wiserone
+
+> A daily dose of wisdom. One quote a day from The Wiser One.
+
+Language: en-GB

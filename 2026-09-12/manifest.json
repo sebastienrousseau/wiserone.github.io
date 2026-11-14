@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "If nobody's upset about what you cut, you didn't cut enough.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

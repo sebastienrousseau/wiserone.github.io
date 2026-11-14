@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Let the moonlight fill you with wonder and the morning light fill you with possibility.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

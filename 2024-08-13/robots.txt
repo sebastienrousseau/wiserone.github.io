@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/what-if-today-isn-t-just-another-day-what-if-it-s-the-beginning/sitemap.xml

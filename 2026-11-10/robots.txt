@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/a-cv-tells-you-where-somebody-has-been-it-says-nothing-about/sitemap.xml

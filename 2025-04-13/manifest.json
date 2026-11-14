@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "May your nights be filled with wonder, your mornings with hope, and your days with reasons to celebrate.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

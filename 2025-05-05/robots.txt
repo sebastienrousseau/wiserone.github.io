@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-world-has-a-thousand-beautiful-melodies-find-the-one-that/sitemap.xml

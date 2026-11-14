@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/stop-waiting-for-life-to-become-beautiful-there-s-beauty-here/sitemap.xml

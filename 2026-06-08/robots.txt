@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/believe-in-the-beautiful-possibilities-of-your-life-even-before/sitemap.xml
