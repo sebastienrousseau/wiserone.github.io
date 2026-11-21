@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/life-becomes-extraordinary-when-you-stop-waiting-for/sitemap.xml

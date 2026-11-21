@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-sunrise-doesn-t-ask-whether-yesterday-was-perfect-it-simply/sitemap.xml

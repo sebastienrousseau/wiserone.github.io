@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "You look at six months of somebody's work and say start over. Then you drive home wondering if you're just cruel.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

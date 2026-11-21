@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/may-the-joy-you-feel-today-become-the-light-you-carry-into/sitemap.xml

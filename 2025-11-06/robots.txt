@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/joy-grows-when-we-share-it-hope-grows-when-we-believe-in-it-and/sitemap.xml

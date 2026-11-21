@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "You have to understand the whole thing before you can cut it down. Most people quit at good enough.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

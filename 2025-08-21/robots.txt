@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-first-reaction-to-anything-genuinely-new-is-discomfort-sit/sitemap.xml

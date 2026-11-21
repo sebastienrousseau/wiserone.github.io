@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/tomorrow-holds-beautiful-surprises-but-don-t-miss-the-wonder/sitemap.xml

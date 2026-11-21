@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-ll-be-called-difficult-by-people-who-were-quietly-relieved/sitemap.xml

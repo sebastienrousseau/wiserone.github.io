@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Every time you stop the room you spend a little of whatever people feel about you.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

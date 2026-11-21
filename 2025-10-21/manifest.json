@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "The magic you keep searching for in the world has been quietly growing inside you all along.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

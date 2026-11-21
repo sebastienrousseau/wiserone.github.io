@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/process-exists-so-people-who-can-t-tell-good-from-bad-can-still/sitemap.xml

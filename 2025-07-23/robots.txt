@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/two-things-can-look-identical-and-only-one-of-them-was-made-by/sitemap.xml

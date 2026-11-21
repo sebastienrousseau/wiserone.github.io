@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/everyone-agrees-with-you-afterwards-that-s-not-the-same-as-help/sitemap.xml

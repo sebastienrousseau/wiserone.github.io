@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/ask-who-a-rule-protects-it-s-almost-never-the-person-using-what/sitemap.xml

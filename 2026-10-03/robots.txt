@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-re-going-to-die-that-one-fact-deletes-more-bad-decisions/sitemap.xml

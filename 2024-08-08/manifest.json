@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "One of life's greatest gifts is discovering that your happiness can become someone else's inspiration.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

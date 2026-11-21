@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/when-the-process-matters-more-than-the-thing-it-s-already-over/sitemap.xml

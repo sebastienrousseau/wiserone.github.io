@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Believe in the beautiful possibilities of your life, even before you can see them.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

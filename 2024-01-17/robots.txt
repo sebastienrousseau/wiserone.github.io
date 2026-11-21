@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-don-t-have-to-travel-to-the-ends-of-the-earth-to-find/sitemap.xml

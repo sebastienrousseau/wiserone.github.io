@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/half-of-what-you-re-doing-is-there-because-nobody-ever-stopped/sitemap.xml

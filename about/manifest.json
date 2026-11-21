@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "A daily dose of wisdom. One quote a day from The Wiser One, published as a fast, accessible static site.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

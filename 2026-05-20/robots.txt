@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-hardest-thing-to-say-is-not-yet-and-you-have-to-say-it-to/sitemap.xml

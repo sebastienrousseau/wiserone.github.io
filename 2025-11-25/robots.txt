@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/dance-beneath-the-stars-tonight-and-wake-tomorrow-knowing-the/sitemap.xml

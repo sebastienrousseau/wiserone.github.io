@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-don-t-have-to-chase-every-star-to-experience-the-magic-of-a/sitemap.xml

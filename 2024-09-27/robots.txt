@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/let-your-dreams-feel-close-your-hopes-feel-bright-and-your/sitemap.xml

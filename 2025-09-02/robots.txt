@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-learn-more-in-the-year-after-a-project-collapses-than-in/sitemap.xml

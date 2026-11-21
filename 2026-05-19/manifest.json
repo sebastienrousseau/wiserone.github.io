@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "You'll be called difficult by people who were quietly relieved somebody made them do it properly.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

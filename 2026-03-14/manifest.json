@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Taste isn't democratic. Somebody has to have the stomach to look at the room and say no.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

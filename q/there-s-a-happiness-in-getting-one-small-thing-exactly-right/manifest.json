@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "There's a happiness in getting one small thing exactly right that nothing else touches.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

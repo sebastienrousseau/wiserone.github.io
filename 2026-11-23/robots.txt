@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-can-follow-the-audience-or-you-can-lead-it-you-can-t-do/sitemap.xml

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/starting-over-is-only-humiliating-if-you-were-pretending-to-be/sitemap.xml

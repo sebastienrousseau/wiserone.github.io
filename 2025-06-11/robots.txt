@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-stuff-you-don-t-ship-is-doing-work-too-it-s-keeping-the/sitemap.xml

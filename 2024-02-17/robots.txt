@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/there-s-something-beautiful-about-a-night-full-of-stars-and-a/sitemap.xml

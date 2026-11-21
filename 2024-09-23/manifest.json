@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "What if the magic you've been waiting to discover is the joy of being exactly where you are?",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}
