@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-ll-miss-it-for-about-a-week-then-you-ll-wonder-why-it-took/sitemap.xml

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/a-little-more-wonder-a-little-more-joy-a-whole-lot-more-living/sitemap.xml

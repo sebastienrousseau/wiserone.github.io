@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/ask-a-hundred-people-what-they-want-and-you-ll-get-a-list-of/sitemap.xml

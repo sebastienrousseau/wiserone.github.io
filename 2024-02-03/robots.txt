@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/life-becomes-a-celebration-when-you-remember-that-every-new-day/sitemap.xml

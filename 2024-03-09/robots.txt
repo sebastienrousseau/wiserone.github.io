@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-cut-far-more-than-you-keep-that-isn-t-restraint-that-s-the/sitemap.xml

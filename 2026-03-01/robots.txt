@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-can-feel-when-the-inside-was-done-properly-you-just-can-t/sitemap.xml

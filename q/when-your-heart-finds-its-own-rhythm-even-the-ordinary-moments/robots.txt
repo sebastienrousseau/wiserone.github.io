@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/when-your-heart-finds-its-own-rhythm-even-the-ordinary-moments/sitemap.xml

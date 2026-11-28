@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "You'll remember three or four projects. Make sure you actually chose them.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

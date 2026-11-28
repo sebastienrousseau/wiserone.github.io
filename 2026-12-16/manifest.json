@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "The best work is a gift to people you'll never know. It's just what it is.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

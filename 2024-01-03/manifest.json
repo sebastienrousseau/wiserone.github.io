@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Let the sunshine find your heart, the music find your soul, and happiness find its way into everything you do.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

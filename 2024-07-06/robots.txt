@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/holding-a-line-when-everyone-else-is-exhausted-is-incredibly/sitemap.xml

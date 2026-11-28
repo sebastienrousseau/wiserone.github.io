@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/make-something-so-good-that-people-feel-looked-after-when-they/sitemap.xml

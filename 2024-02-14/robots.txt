@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-best-kind-of-magic-doesn-t-change-the-world-around-you-it/sitemap.xml

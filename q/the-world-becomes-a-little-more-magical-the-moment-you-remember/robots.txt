@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/the-world-becomes-a-little-more-magical-the-moment-you-remember/sitemap.xml

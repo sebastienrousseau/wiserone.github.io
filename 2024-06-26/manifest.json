@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Life is too short to make things you'd be ashamed to sign.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

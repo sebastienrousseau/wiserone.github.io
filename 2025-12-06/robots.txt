@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/sometimes-all-it-takes-is-one-beautiful-feeling-to-remind-you/sitemap.xml

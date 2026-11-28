@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/you-can-spend-your-life-making-money-or-you-can-spend-it-making/sitemap.xml

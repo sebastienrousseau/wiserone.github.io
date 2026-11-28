@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Every new day carries a thousand little invitations to fall in love with being alive.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

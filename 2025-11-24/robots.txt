@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/let-your-heart-dance-to-the-beautiful-possibilities-of-being/sitemap.xml

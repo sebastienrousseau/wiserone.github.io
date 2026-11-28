@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/your-brightest-chapters-may-begin-on-the-most-ordinary-mornings/sitemap.xml

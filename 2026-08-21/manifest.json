@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "description": "Every sunrise brings a new melody to a life that is still beautifully unfolding.",
+  "display": "standalone",
+  "icons": [],
+  "name": "The Wiser One",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "short_name": "Wiser One",
+  "start_url": ".",
+  "theme_color": null
+}

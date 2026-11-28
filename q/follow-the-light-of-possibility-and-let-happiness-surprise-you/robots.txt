@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/follow-the-light-of-possibility-and-let-happiness-surprise-you/sitemap.xml

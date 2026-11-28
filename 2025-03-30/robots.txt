@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/let-your-freedom-shine-so-brightly-that-even-your-dreams-begin/sitemap.xml

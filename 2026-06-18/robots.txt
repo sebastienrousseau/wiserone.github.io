@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/there-are-wonderful-moments-ahead-that-you-haven-t-even/sitemap.xml

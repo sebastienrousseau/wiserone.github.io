@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/freedom-begins-when-you-stop-asking-yesterday-for-permission-to/sitemap.xml

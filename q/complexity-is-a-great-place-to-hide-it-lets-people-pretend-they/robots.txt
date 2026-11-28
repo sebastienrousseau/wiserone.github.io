@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://wiserone.com/q/complexity-is-a-great-place-to-hide-it-lets-people-pretend-they/sitemap.xml
